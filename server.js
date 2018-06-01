@@ -1,9 +1,12 @@
 const express = require("express");
 const path = require("path");
-const Quote = require("./models/quote");
-const Category = require("./models/category");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const bcrypt = require("bcrypt");
+const User = require("./models/User");
+const Quote = require("./models/quote");
+const Category = require("./models/category");
 
 const app = express();
 
@@ -38,7 +41,7 @@ app.use(
 app.set("view engine", "ejs");
 
 app.get("/", (request, response) => {
-  response.render("home/index");
+  response.render("launch");
 });
 
 // app.post("/login", (request, response) => {});

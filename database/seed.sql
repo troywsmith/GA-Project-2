@@ -1,9 +1,10 @@
-\c cryptobank;
+\c cryptobank_db;
 
-DELETE FROM users;
 DELETE FROM wallets;
 DELETE FROM transactions;
 DELETE FROM relationships;
+DELETE FROM users;
+
 
 INSERT INTO users (username, password_digest, fname, lname, email) 
 VALUES ('Johnnyboy', 'drgsdfg3453', 'John', 'Doe', 'johndoe@gmail.com');
@@ -16,13 +17,13 @@ INSERT INTO wallets (user_id, btc_bal, ltc_bal, ufr_bal)
 VALUES (2, 9877, 3453, 222222);
 
 INSERT INTO transactions (sending_user_id, receiving_user_id, amount, coin)
-VALUES (1, 2, 20, "UFR");
+VALUES (1, 2, 20, 'UFR');
 INSERT INTO transactions (sending_user_id, receiving_user_id, amount, coin)
-VALUES (1, 2, 5, "BTC");
+VALUES (1, 2, 5, 'BTC');
 INSERT INTO transactions (sending_user_id, receiving_user_id, amount, coin)
-VALUES (2, 1, 40, "LTC");
+VALUES (2, 1, 40, 'LTC');
 
-INSERT INTO relationships (related_user_id, related_user_id, type)
-VALUES (1, 2, "friends");
-INSERT INTO relationships (related_user_id, related_user_id, type)
-VALUES (2, 1, "friends");
+INSERT INTO relationships (relating_user_id, related_user_id, type)
+VALUES (1, 2, 'friends');
+INSERT INTO relationships (relating_user_id, related_user_id, type)
+VALUES (2, 1, 'friends');

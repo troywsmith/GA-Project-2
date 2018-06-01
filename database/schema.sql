@@ -2,10 +2,10 @@ CREATE DATABASE cryptobank_db;
 
 \c cryptobank_db;
 
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS wallets;
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS relationships;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE users (
   password_digest TEXT,
   fname TEXT,
   lname TEXT,
-  email TEXT,
+  email TEXT
 );
 
 CREATE TABLE wallets (
@@ -21,7 +21,7 @@ CREATE TABLE wallets (
   user_id INTEGER REFERENCES users(id),
   btc_bal INTEGER,
   ltc_bal INTEGER,
-  ufr_bal INTEGER,
+  ufr_bal INTEGER
 );
 
 CREATE TABLE transactions (
