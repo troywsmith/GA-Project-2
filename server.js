@@ -9,6 +9,7 @@ const Quote = require("./models/quote");
 const Category = require("./models/category");
 
 const app = express();
+const saltRounds = 10;
 
 // Allow override of HTTP methods based on the query string ?_method=DELETE
 app.use(methodOverride("_method"));
@@ -44,13 +45,51 @@ app.get("/", (request, response) => {
   response.render("launch");
 });
 
-// app.post("/login", (request, response) => {});
+app.post("/login", (request, response) => {
+  User.findByUsername(request.body.username).then(user => {
+    return bcrypt
+      .compare(request.body.password, user.password_digest)
+      .then(isPasswordCorrect => {
+        if (isPasswordCorrect) {
+          request.session.loggedIn = true;
+          request.session.userId = user.id;
+          return response.redirect(301, "/your-account");
+        }
+        response.redirect(301, "/");
+      });
+  });
+});
 
-// app.post("/register", (request, response) => {});
+app.post("/register", (request, response) => {
+  const password = request.body.password;
+  bcrypt
+    .hash(password, saltRounds)
+    .then(hash => {
+      const newUser = {
+        username: request.body.username,
+        password_digest: hash,
+      };
+      return User.create(newUser);
+    })
+    .then(user => {
+      request.session.loggedIn = true;
+      request.session.userId = user.id;
+      response.redirect(301, "/your-account");
+    });
+});
 
-// app.get("/your-account", (request, response) => {
-//   response.send("Your balance has XXXXX dollars");
-// });
+const requireLogin = (request, response, next) => {
+  if (!request.session.loggedIn) {
+    return response.status(403).send("You do not have access");
+  }
+  next();
+};
+
+app.get("/your-account", requireLogin, (request, response) => {
+  User.find(request.session.userId).then(user => {
+    response.send(`Your balance has ${user.balance} dollars`);
+  });
+});
 
 // app.get("/", (request, response) => {
 //   Category.all().then(categoryData => {

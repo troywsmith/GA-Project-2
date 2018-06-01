@@ -1,21 +1,24 @@
-<!doctype html>
-<html>
-  <head>
-    <% include ./partials/head %>
-  </head>
+<% include ./partials/head %>
   <body class="homepage">
     <div class="page-container">
 
       <p>Welcome to your APP, a place to share inspirational, funny, and absurd quotes!!!</p>
       <h1>Quotes</h1>
-      <p>Check out <a href="/quotes">all quotes</a></p>
+      <p>Check out
+        <a href="/quotes">all quotes</a>
+      </p>
 
       <h1>Categories</h1>
       <ul>
         <% categories.forEach(category => { %>
-          <li><a href="/categories/<%= category.id %>"><%= category.name %></a></li>
-        <% }) %>
+          <li>
+            <a href="/categories/<%= category.id %>">
+              <%= category.name %>
+            </a>
+          </li>
+          <% }) %>
       </ul>
     </div>
   </body>
-</html>
+
+  </html>

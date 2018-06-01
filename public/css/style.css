@@ -1,4 +1,68 @@
 body {
-  background-color: #efefef;
+  background-color: #39A0ED;
   font-family: "Roboto", sans-serif;
+  color: white;
 }
+
+h1 {
+  font-size: 40px;
+  color: #36F1CD;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 10px;
+}
+
+.loginregisterdiv {
+  width: 50%;
+  text-align: center;
+  margin: auto;
+}
+
+header {
+  height: 75px;
+  font-size: 40px;
+}
+
+.appname {
+  top: 50px;
+  left: 50px;
+}
+
+.appdescription {
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+}
+
+.loginregisterdiv p {
+  padding: 5px;
+}
+
+.submitdiv {
+  margin: 10px;
+}
+
+.logindiv {
+  padding:20px;
+  background: #4C6085;
+  margin: 20px auto;
+
+}
+
+.registerdiv {
+  padding: 20px;
+  background: #4C6085;
+  margin: 20px auto;
+
+}
+
