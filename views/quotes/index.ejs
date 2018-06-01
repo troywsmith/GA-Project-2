@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <div class="page-container">
+      <h2 class="page-title">All Quotes!!</h2>
+      <p><a href="/quotes/new">Write a new quote</a></p>
+      <% quotes.forEach(quote => { %>
+        <div class="quote-wrapper">
+          <blockquote><%= quote.author %> says: <%= quote.content %>!</blockquote>
+          <div class="quote-actions">
+            <a href="/quotes/<%= quote.id %>">Link</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </body>
+</html>
