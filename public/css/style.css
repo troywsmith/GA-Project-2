@@ -1,12 +1,15 @@
 body {
-  background-color: #39A0ED;
-  font-family: "Roboto", sans-serif;
+  background-color: #A8D0E6;
+  font-family: 'Jua', sans-serif;  
   color: white;
+  text-align: center;
+  overflow: scroll;
 }
 
 h1 {
+  text-align: left;
   font-size: 40px;
-  color: #36F1CD;
+  color: F7;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
@@ -34,12 +37,15 @@ header {
 }
 
 .appname {
-  top: 50px;
-  left: 50px;
+  position:absolute;
+  top:2%;
+  left:2%;
+  font-family: 'Jua', sans-serif;  
+
 }
 
 .appdescription {
-  font-size: 20px;
+  font-size: 35px;
   text-align: center;
   padding: 20px;
 }
@@ -54,15 +60,168 @@ header {
 
 .logindiv {
   padding:20px;
-  background: #4C6085;
-  margin: 20px auto;
+  background: #374785;
+  margin: auto;
+  border-radius: 25px;
+  min-width: 250px;
+}
 
+.logindiv * {
+  padding: 5px;
 }
 
 .registerdiv {
   padding: 20px;
-  background: #4C6085;
+  background: #374785;
   margin: 20px auto;
+  border-radius: 25px;
+  min-width: 250px;
+}
+
+.registerdiv * {
+    padding: 5px;
+}
+
+input {
+  border: none;
+  width: 150px;
+  height: 30px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 20px;
+}
+
+input:focus {
+  width: 200px;
+  height: 40px;
+}
+
+input:hover {
+  width: 200px;
+  height: 40px;
+}
+
+button {
+  background: #F76C6C;
+  color: white;
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 25px;
+  font-size: 20px;
+  font-family: 'Jua', sans-serif;  
+}
+
+button:hover {
+  background: rgb(255, 54, 54);
+}
+
+input {
+  background-color: #F8E9A1
+}
+
+
+
+/* homepage */
+
+.paymentinfo {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.paymentinfo * {
+  width: 120px;
+  height: 40px;
+}
+
+input[type=number] {
+  border: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.paybuttons {
+  display: flex;
+  justify-content: center;
+}
+
+.paybuttons * {
+  width: 150px;
+  height: 40px;
+}
+
+.activitywalletdiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 500px;
+  text-align: center;
 
 }
 
+.activityfeed {
+  height: 80%;
+  width: 45%;
+  border-radius: 25px;
+  background-color: #374785;
+  overflow: scroll;
+}
+
+.activityfeed * {
+  margin: 15px;
+}
+
+.walletbalancesdiv {
+  height: 80%;
+  width: 45%;
+  border-radius: 25px;
+  background-color: #374785;
+  overflow: scroll;
+}
+
+.walletbalancesdiv h2 {
+  margin: 15px;
+}
+
+.coinnameamount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.coinnameamount * {
+  margin: 30px;
+  font-size: 30px;
+}
+
+
+
+
+
+
+/* footer */
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5%;
+  color: white;
+  text-align: center;
+}
+
+
+@media only screen and (min-width: 800px) {
+  .logindiv {
+    width: 400px;
+    height: 225px;
+  }
+  .registerdiv {
+    width: 400px;
+    height: 400px;
+  }
+}

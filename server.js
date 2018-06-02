@@ -5,8 +5,7 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const User = require("./models/User");
-const Quote = require("./models/quote");
-const Category = require("./models/category");
+const Transaction = require("./models/Transaction");
 
 const app = express();
 const saltRounds = 10;
@@ -24,16 +23,12 @@ const PORT = process.env.PORT || 4567;
 // Serve any files in the public folder at the "/public" route.
 app.use("/public", express.static("public"));
 
-// Set the folder for where our views are.
-// we're turning off the app.set function because express defaults to the "views" directory by convention now
-// app.set("views", path.join(__dirname, "views"));
-
 // Tell Express that we use EJS in our views.
 app.set("view engine", "ejs");
 
 app.use(
   session({
-    secret: "some random string we should change for our application",
+    secret: "troys super secret password",
     resave: false,
     saveUninitialized: true
   })
@@ -42,6 +37,7 @@ app.use(
 app.set("view engine", "ejs");
 
 app.get("/", (request, response) => {
+  console.log("about to render launch page");
   response.render("launch");
 });
 
@@ -53,12 +49,13 @@ app.post("/login", (request, response) => {
         if (isPasswordCorrect) {
           request.session.loggedIn = true;
           request.session.userId = user.id;
-          return response.redirect(301, "/your-account");
+          return response.redirect(301, "/homepage");
         }
         response.redirect(301, "/");
       });
   });
 });
+
 
 app.post("/register", (request, response) => {
   const password = request.body.password;
@@ -74,7 +71,8 @@ app.post("/register", (request, response) => {
     .then(user => {
       request.session.loggedIn = true;
       request.session.userId = user.id;
-      response.redirect(301, "/your-account");
+      console.log("about to redirect to route -> /homepage");
+      response.redirect(301, "/homepage");
     });
 });
 
@@ -85,73 +83,71 @@ const requireLogin = (request, response, next) => {
   next();
 };
 
-app.get("/your-account", requireLogin, (request, response) => {
-  User.find(request.session.userId).then(user => {
-    response.send(`Your balance has ${user.balance} dollars`);
+app.get("/homepage", requireLogin, (request, response) => {
+  Promise.all([
+    User.all(),
+    User.find(request.session.userId),
+    Transaction.all(),
+  ])
+  .then(([users, userData, transactions]) => {
+    console.log(`about to render homepage`)
+    response.render(`homepage`, {users: users, user: userData, transactions: transactions});
   });
 });
 
-// app.get("/", (request, response) => {
-//   Category.all().then(categoryData => {
-//     response.render("homepage", {categories: categoryData});
-//   })
-// });
 
-// app.get("/quotes", (request, response) => {
-//   Quote.all().then(quotesData => {
-//     response.render("quotes/index", { quotes: quotesData });
-//   });
-// });
 
-// app.post("/quotes", (request, response) => {
-//   const newQuote = request.body;
-//   Quote.create(newQuote).then(quoteData => {
-//     response.redirect(302, "/quotes");
-//   });
-// });
+app.post("/newtransaction", (request, response) => {
+  //need to get logged in user id
+  //need to get selected user id
+  //need to get selected coin
+  //need to get selected amount of coins
+  //need to reduce logged in user selected coin balance by selected amount
+  //need to add selected users selected coin balance by selected amount
+  //need to bring back to homepage
+  // Promise.all([
+    const currentUserId = request.session.userId;
+    const selectedUser = request.body.selectedfriend;
+    const selectedCurrency = request.body.selectedcurrency;
+    const selectedAmount = request.body.amount;
 
-// app.get("/quotes/new", (request, response) => {
-//   response.render("quotes/new");
-// });
+    const transactionData = {
+      sending_user_id: currentUserId,
+      receiving_username: selectedUser,
+      amount: selectedAmount,
+      coin: selectedCurrency
+    };
+    console.log(transactionData);
 
-// app.get("/quotes/:id/edit", (request, response) => {
-//   const id = Number(request.params.id);
-//   Quote.findById(id).then(quoteData => {
-//     response.render("quotes/edit", { quote: quoteData })
-//   })
-// });
+    const updateData = {
+      sending_user_id: currentUserId,
+      receiving_username: selectedUser,
+      amount: selectedAmount
+    }
+    console.log(updateData);
 
-// app.put("/quotes/:id", (request, response) => {
-//   const updatedQuote = request.body;
-//   updatedQuote.id = request.params.id;
-//   Quote.updateById(updatedQuote).then(quoteData => {
-//     response.redirect(302, `/quotes/${updatedQuote.id}`);
-//   })
-// });
+    // const selectedUserId = User.findIdbyUsername(selectedUser);
+    // console.log(selectedUserId);
+    Transaction.create(transactionData);
+    User.updateSender(updateData);
+    User.updateReceiver(updateData);
+    response.redirect(301, 'homepage');
+});
 
-// app.get("/quotes/:id", (request, response) => {
-//   const id = Number(request.params.id);
-//   Quote.findById(id).then(quoteData => {
-//     response.render("quotes/show", { quote: quoteData })
-//   })
-// });
 
-// app.delete("/quotes/:id", (request, response) => {
-//   const id = Number(request.params.id);
-//   Quote.delete(id).then(quote => {
-//     response.redirect(302, "/quotes");
-//   })
-// });
 
-// app.get("/categories/:id", (request, response) => {
-//   const id = Number(request.params.id);
-//   Promise.all([
-//     Category.findById(id),
-//     Quote.allByCategoryId(id)
-//   ]).then(([category, quotes]) => {
-//     response.render("categories/show", { category: category, quotes: quotes });
-//   });
-// });
+
+
+
+
+
+app.post('/homepage', (request, response) => {
+  User.find(request.session.userId)
+  console.log(request.session.userId);
+
+})
+
+
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

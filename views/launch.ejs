@@ -7,15 +7,13 @@
       <h2>Login</h2>
       <form class="loginform" action="/login" method="POST">
         <div>
-          <p>Username: </p>
-          <input type="text" name="username" />
+          <input type="text" name="username" placeholder="username" />
         </div>
         <div>
-          <p>Password: </p>
-          <input type="text" name="password" />
+          <input type="text" name="password" placeholder="password"/>
         </div>
         <div class="submitdiv">
-          <input type="submit" />
+          <button>Login</button>
         </div>
       </form>
     </div>
@@ -23,30 +21,24 @@
       <h2>Register</h2>
       <form class="registerform" action="/register" method="POST">
         <div>
-          <p>Username: </p>
-          <input type="text" name="username" />
+          <input type="text" name="username" placeholder="username"/>
         </div>
         <div>
-          <p>Password: </p>
-          <input type="text" name="password" />
+          <input type="text" name="password" placeholder="password" />
         </div>
         <div>
-          <p>First Name: </p>
-          <input type="text" name="fname" />
+          <input type="text" name="fname" placeholder="first name" />
         </div>
         <div>
-          <p>Last Name: </p>
-          <input type="text" name="lname" />
+          <input type="text" name="lname" placeholder="last name" />
         </div>
         <div>
-          <p>Email: </p>
-          <input type="text" name="email" />
+          <input type="text" name="email" placeholder="email" />
         </div>
         <div class="submitdiv">
-          <input type="submit" />
+            <button>Register</button>
         </div>
       </form>
     </div>
     </body>
-
-    </html>
+    <% include ./partials/footer %>
