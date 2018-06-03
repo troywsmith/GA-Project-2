@@ -21,11 +21,11 @@ h2 {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 h4 {
-  font-size: 10px;
+  font-size: 20px;
 }
 
 input {
@@ -85,28 +85,35 @@ header {
 
 /* top nav bar */
 .topnav {
-  width: 100%;
-  height: 50px;
+  overflow: hidden;
   background: #374785;
+
+  /* width: 100%;
+  height: 50px;
   overflow: hidden;
   display: flex;
   justify-content: space-around;
   align-content: center;
-  list-style-type: none;
+  list-style-type: none; */
 }
 
-.topnav * {
-  align-self: center;
+.topnav a {
+  float: left;
+  display: block;
   color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-  height: 100%;
-  width: 20%;
 }
 
-.topnav *:hover {
+.topnav a:hover {
   background-color: #F76C6C;
   color: black;
+}
+
+.topnav .burger {
+  display: none;
 }
 
 
@@ -159,8 +166,12 @@ header {
   padding: 5px;
 }
 
-/* account page */
 
+
+
+
+
+/* dashboard page */
 .usergreet {
   margin: 20px;
 }
@@ -240,6 +251,72 @@ header {
 
 
 
+/* friend page */
+.friendpage {
+  margin: 50px auto;
+}
+
+.friendsearchdiv * {
+  margin: 10px;
+}
+
+.userlist *:hover {
+  color: #F76C6C;
+}
+
+.userlist li {
+  font-size: 30px;
+  margin: 10px;
+}
+
+
+/* Deposit Withdraw Page  */
+.container {
+  width: 100%;
+  margin: auto;
+}
+
+.deposit {
+  float: left;
+  width: 40%;
+  height: 400px;
+  margin: 1%;
+  padding: 10px;
+  background-color: #374785;
+  overflow-wrap: break-word;
+
+}
+
+.deposit * {
+  margin: 20px;
+}
+
+.withdraw {
+  float: right;
+  width: 40%;
+  height: 400px;
+  margin: 1%;
+  padding: 10px;
+  background-color: #374785;
+}
+
+.withdraw * {
+  margin: 20px;
+}
+
+.withdraw input {
+  width: 80%;
+  border-radius: 0px;
+}
+
+.warning {
+  color: red;
+}
+
+
+
+
+
 /* footer */
 footer {
   position: fixed;
@@ -255,15 +332,6 @@ footer * {
   margin: 10px;
 }
 
-/* 
-@media only screen and (min-width: 800px) {
-  /* .logindiv {
-    width: 400px;
-    height: 225px;
-  }
-  .registerdiv {
-    width: 400px;
-    height: 225px;
-  } */
+
 
 

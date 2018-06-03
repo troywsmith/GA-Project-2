@@ -2,17 +2,38 @@ const db = require("../database/connection");
 
 const Model = {};
 
-Model.allUsers = () => {
-  return db.any("SELECT * FROM users");
+Model.all = () => {
+  return db.any(`
+  SELECT * 
+  FROM users, transactions
+  WHERE users.id = transactions.sending_user_id
+  ORDER BY transactions.dateandtime DESC`);
 };
 
-Model.findUser = id => db.one("SELECT * FROM users WHERE id = $1", [id]);
+
+Model.allUsers = () => {
+  return db.any(`
+  SELECT * 
+  FROM users
+  ORDER BY username ASC`);
+};
+
+Model.findUser = id => db.one(`
+  SELECT * 
+  FROM users 
+  WHERE id = $1`, [id]);
 
 Model.findByUsername = username =>
-  db.one("SELECT * FROM users WHERE username = $1", [username]);
+  db.one(`
+  SELECT * 
+  FROM users 
+  WHERE username = $1`, [username]);
 
 Model.findIdbyUsername = username =>
-  db.one("SELECT id FROM users WHERE username = $1", [username]);
+  db.one(`
+  SELECT id 
+  FROM users 
+  WHERE username = $1`, [username]);
 
 Model.createUser = user =>
   db.one(

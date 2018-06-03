@@ -53,13 +53,15 @@ app.get("/", (request, response) => {
 //dashboard screen
 app.get("/dashboard", requireLogin, (request, response) => {
   Promise.all([
+      Model.all(),
       Model.allUsers(),
       Model.findUser(request.session.userId),
       Model.allTransactions(),
     ])
-    .then(([users, userData, transactions]) => {
+    .then(([all, users, userData, transactions]) => {
       console.log(`about to render dashboard page`)
       response.render(`dashboard`, {
+        all: all,
         users: users,
         user: userData,
         transactions: transactions
@@ -76,7 +78,7 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
     ])
     .then(([users, userData, transactions]) => {
       console.log(`about to render dashboard page`)
-      response.render(`dashboard`, {
+      response.render(`depositwithdraw`, {
         users: users,
         user: userData,
         transactions: transactions
@@ -92,8 +94,8 @@ app.get("/friends", requireLogin, (request, response) => {
       Model.allTransactions(),
     ])
     .then(([users, userData, transactions]) => {
-      console.log(`about to render dashboard page`)
-      response.render(`dashboard`, {
+      console.log(`about to render friends page`)
+      response.render(`friend`, {
         users: users,
         user: userData,
         transactions: transactions

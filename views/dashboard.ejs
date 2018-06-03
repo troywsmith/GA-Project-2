@@ -31,18 +31,19 @@
           <h2>Recent Activity</h2>
           <hr>
           <ul>
-            <% transactions.forEach(transaction => { %>
-              <li>
-                <%= transaction.dateandtime %>
-                  <br>
-                  <%= transaction.sending_user_id %>
-                    sent
-                    <%= transaction.receiving_username %>
-                      <%= transaction.amount %>
-              </li>
-              <hr>
-              <% }) %>
-          </ul>
+              <% all.forEach(transaction => { %>
+                <li>
+                  <%= transaction.dateandtime %>
+                    <br>
+                    <%= transaction.username %>
+                      sent
+                      <%= transaction.receiving_username %>
+                        <%= transaction.amount %>
+                        coins
+                </li>
+                <hr>
+                <% }) %>
+            </ul>
         </div>
         <div class="walletbalancesdiv">
           <h2>Your Wallet</h2>
