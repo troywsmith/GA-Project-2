@@ -9,7 +9,11 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
   password_digest TEXT NOT NULL,
-  bal INTEGER CHECK (bal > -1)
+  email TEXT UNIQUE NOT NULL,
+  bal INTEGER CHECK (bal > -1),
+  phone TEXT,
+  address TEXT,
+  account_active  boolean NOT NULL
 );
 
 CREATE TABLE transactions (

@@ -77,7 +77,7 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
       Model.allTransactions(),
     ])
     .then(([users, userData, transactions]) => {
-      console.log(`about to render dashboard page`)
+      console.log(`about to render deposit page`)
       response.render(`depositwithdraw`, {
         users: users,
         user: userData,
@@ -112,7 +112,7 @@ app.get("/settings", requireLogin, (request, response) => {
     ])
     .then(([users, userData, transactions]) => {
       console.log(`about to render dashboard page`)
-      response.render(`dashboard`, {
+      response.render(`settings`, {
         users: users,
         user: userData,
         transactions: transactions
@@ -130,7 +130,7 @@ app.get("/logout", (request, response) => {
 
 
 
-
+//when login form submitted
 app.post("/login", (request, response) => {
   Model.findByUsername(request.body.username).then(user => {
     return bcrypt
@@ -147,7 +147,7 @@ app.post("/login", (request, response) => {
   });
 });
 
-
+//when register form submitted
 app.post("/register", requireUsernamePassword, (request, response) => {
   const password = request.body.password;
   bcrypt
@@ -156,28 +156,27 @@ app.post("/register", requireUsernamePassword, (request, response) => {
       const newUser = {
         username: request.body.username,
         password_digest: hash,
+        email: request.body.email,
       };
+      Model.updateMaster();
       return Model.createUser(newUser);
     })
     .then(user => {
       request.session.loggedIn = true;
       request.session.userId = user.id;
+      request.session.userEmail = user.email;
       console.log("about to redirect to route -> /dashboard");
       response.redirect(301, "/dashboard");
     });
 });
 
+//when payment form is submitted
 app.post("/newtransaction", (request, response) => {
-  // Promise.all([
-  const currentUserId = request.session.userId;
-  const selectedUser = request.body.selectedusername;
-  const selectedAmount = Number(request.body.amount);
-  const dateandtime = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
   const transactionData = {
-    sending_user_id: currentUserId,
-    receiving_username: selectedUser,
-    amount: selectedAmount,
-    dateandtime: dateandtime
+    sending_user_id: request.session.userId,
+    receiving_username: request.body.selectedusername,
+    amount: Number(request.body.amount),
+    dateandtime: moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
   };
   console.log(transactionData);
   Model.updateBalances(transactionData)
@@ -187,11 +186,27 @@ app.post("/newtransaction", (request, response) => {
   response.redirect(301, 'dashboard');
 });
 
+//when update profile form is submitted
+app.post('/updateaccount', (request, response) => {
+  const updatedData = {
+    userId: request.session.userId,
+    username: request.body.username,
+    email: request.body.email,
+    phone: request.body.phone,
+    address: request.body.address
+  };
+  console.log(updatedData);
+  Model.updateUser(updatedData);
+  response.redirect(301, 'settings');
+});
 
-app.post('/dashboard', (request, response) => {
-  user.find(request.session.userId)
-  console.log(request.session.userId);
-})
+//when delete account form is submitted
+app.post('/deleteaccount', (request, response) => {
+  Model.deleteUser(request.session.userId);
+  response.redirect(301, '/');
+});
+
+
 
 
 

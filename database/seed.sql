@@ -1,13 +1,10 @@
 \c cryptobank_db;
 
-DELETE FROM transactions;
-DELETE FROM users;
+-- DELETE FROM transactions;
+-- DELETE FROM users;
+
+INSERT INTO users (username, password_digest, email, bal, account_active ) 
+VALUES ('MASTER ACCOUNT', 'master', 'troywsmith2016@gmail.com', 1000000, TRUE);
 
 
-INSERT INTO users (username, password_digest, bal) 
-VALUES ('Alex', 'passwordAlex', 5);
-INSERT INTO users (username, password_digest, bal) 
-VALUES ('Ben', 'passwordBen', 15);
-INSERT INTO users (username, password_digest, bal) 
-VALUES ('Chris', 'passwordChris', 10);
 

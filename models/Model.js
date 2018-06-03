@@ -10,7 +10,6 @@ Model.all = () => {
   ORDER BY transactions.dateandtime DESC`);
 };
 
-
 Model.allUsers = () => {
   return db.any(`
   SELECT * 
@@ -37,10 +36,37 @@ Model.findIdbyUsername = username =>
 
 Model.createUser = user =>
   db.one(
-    `INSERT INTO users (username, password_digest, bal) 
-    VALUES ($1, $2, 10) 
-    RETURNING *`, [user.username, user.password_digest, user.bal]
+    `
+    INSERT INTO users (username, password_digest, email, bal, account_active) 
+    VALUES ('${user.username}', '${user.password_digest}', '${user.email}', 10, TRUE) 
+    RETURNING *;
+    `, user
   );
+
+Model.updateMaster = () => 
+db.none(
+  `UPDATE users
+  SET bal = bal - 10
+  WHERE id = 1`
+);
+
+Model.updateUser = updatedData => 
+db.none(
+  `UPDATE users
+  SET username = '${updatedData.username}',
+  email = '${updatedData.email}',
+  phone = '${updatedData.phone}',
+  address = '${updatedData.address}'
+  WHERE id = ${updatedData.userId}`, updatedData
+);
+
+Model.deleteUser = userId => 
+db.none(
+  `UPDATE users
+  SET account_active = 'FALSE'
+  WHERE id = ${userId}`, userId
+);
+
 
 Model.updateBalances = data =>
   db.none(
