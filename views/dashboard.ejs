@@ -1,0 +1,69 @@
+<% include ./partials/head %>
+  <% include ./partials/topnav %>
+    <div class="dashboardpage">
+      <h2 class="usergreet">Hi again,
+        <%= user.username %> !
+      </h2>
+
+      <div class="paymentdiv">
+        <form action="/newtransaction" method="POST" class="paymentform">
+          <p>Exchange TROY coins</p>
+          <div class="frienddropdowndiv">
+            <input type="text" id="ajax" list="json-datalist" name="selectedusername" placeholder="username">
+            <datalist id="json-datalist">
+              <% users.forEach(user => { %>
+                <option value="<%= user.username %>">
+                  <%= user.username %>
+                </option>
+                <% }) %>
+            </datalist>
+          </div>
+          <input type="number" name="amount" placeholder="amount">
+          <div class="paybuttons">
+            <button type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+
+
+      <div class="activitywalletdiv">
+        <div class="activityfeed">
+          <h2>Recent Activity</h2>
+          <hr>
+          <ul>
+            <% transactions.forEach(transaction => { %>
+              <li>
+                <%= transaction.dateandtime %>
+                  <br>
+                  <%= transaction.sending_user_id %>
+                    sent
+                    <%= transaction.receiving_username %>
+                      <%= transaction.amount %>
+              </li>
+              <hr>
+              <% }) %>
+          </ul>
+        </div>
+        <div class="walletbalancesdiv">
+          <h2>Your Wallet</h2>
+          <hr>
+          <div class="coinnameamount">
+            <ul class="walletcoinname">
+              <li>Balance: </li>
+            </ul>
+            <ul class="walletcoins">
+              <li>
+                <%= user.bal%> TROY
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <% include ./partials/footer %>

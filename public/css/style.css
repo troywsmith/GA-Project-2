@@ -8,6 +8,14 @@ body {
   overflow: scroll;
 }
 
+.launchpage {
+  max-width: 1000px;
+}
+
+.dashboardpage {
+  max-width: 1000px;
+}
+
 h2 {
   font-size: 30px;
 }
@@ -50,8 +58,12 @@ button:hover {
   background: rgb(255, 54, 54);
 }
 
-/* header  */
+hr {
+  width: 80%;
+  display: none;
+}
 
+/* header  */
 header {
   height: 75px;
   font-size: 40px;
@@ -71,8 +83,36 @@ header {
 
 
 
-/* login or register page */
+/* top nav bar */
+.topnav {
+  width: 100%;
+  height: 50px;
+  background: #374785;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  list-style-type: none;
+}
 
+.topnav * {
+  align-self: center;
+  color: #f2f2f2;
+  text-decoration: none;
+  font-size: 17px;
+  height: 100%;
+  width: 20%;
+}
+
+.topnav *:hover {
+  background-color: #F76C6C;
+  color: black;
+}
+
+
+
+
+/* login or register page */
 .appdescription {
   font-size: 35px;
   text-align: center;
@@ -197,8 +237,10 @@ header {
   font-size: 30px;
 }
 
-/* footer */
 
+
+
+/* footer */
 footer {
   position: fixed;
   left: 0;
@@ -213,13 +255,15 @@ footer * {
   margin: 10px;
 }
 
+/* 
 @media only screen and (min-width: 800px) {
-  .logindiv {
+  /* .logindiv {
     width: 400px;
     height: 225px;
   }
   .registerdiv {
     width: 400px;
     height: 225px;
-  }
-}
+  } */
+
+

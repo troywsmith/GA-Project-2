@@ -16,5 +16,6 @@ CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
   sending_user_id INTEGER REFERENCES users(id),
   receiving_username TEXT,
-  amount INTEGER
+  amount INTEGER,
+  dateandtime TEXT
 );

@@ -2,11 +2,11 @@ const db = require("../database/connection");
 
 const Model = {};
 
-Model.all = () => {
+Model.allUsers = () => {
   return db.any("SELECT * FROM users");
 };
 
-Model.find = id => db.one("SELECT * FROM users WHERE id = $1", [id]);
+Model.findUser = id => db.one("SELECT * FROM users WHERE id = $1", [id]);
 
 Model.findByUsername = username =>
   db.one("SELECT * FROM users WHERE username = $1", [username]);
@@ -34,8 +34,8 @@ Model.updateBalances = data =>
     SET bal = bal + ${data.amount}
     WHERE username = '${data.receiving_username}';
 
-    INSERT INTO transactions (sending_user_id, receiving_username, amount) 
-    VALUES (${data.sending_user_id}, '${data.receiving_username}', ${data.amount}) 
+    INSERT INTO transactions (sending_user_id, receiving_username, amount, dateandtime) 
+    VALUES (${data.sending_user_id}, '${data.receiving_username}', ${data.amount}, '${data.dateandtime}') 
     RETURNING *;
 
     COMMIT;
