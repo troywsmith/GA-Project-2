@@ -7,15 +7,15 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username TEXT,
-  password_digest TEXT,
-  bal INTEGER
+  username TEXT UNIQUE NOT NULL,
+  password_digest TEXT NOT NULL,
+  bal INTEGER CHECK (bal > -1)
 );
 
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
   sending_user_id INTEGER REFERENCES users(id),
   receiving_username TEXT,
-  amount INTEGER,
+  amount INTEGER CHECK (amount > 0),
   dateandtime TEXT
 );

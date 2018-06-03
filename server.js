@@ -8,12 +8,24 @@ const bcrypt = require("bcrypt");
 const Model = require("./models/Model");
 const app = express();
 const saltRounds = 10;
+const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+
 const requireLogin = (request, response, next) => {
   if (!request.session.loggedIn) {
     return response.status(403).send("You do not have access");
   }
   next();
 };
+
+const requireUsernamePassword = (request, response, next) => {
+  let un = request.body.username;
+  let pw = request.body.password;
+  if ((un == "") || (ps = "")) {
+      return response.status(403).send("Username and Password must be filled out");
+  }
+  next();
+};
+
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({
   extended: false
@@ -34,7 +46,7 @@ const PORT = process.env.PORT || 4567;
 //splash screen
 app.get("/", (request, response) => {
   console.log("about to render launch page");
-  console.log(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+  console.log(timestamp);
   response.render("launch");
 });
 
@@ -55,7 +67,7 @@ app.get("/dashboard", requireLogin, (request, response) => {
     });
 });
 
-//dashboard screen
+//depositwithdraw screen
 app.get("/depositwithdraw", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -72,7 +84,7 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
     });
 });
 
-//dashboard screen
+//friends screen
 app.get("/friends", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -89,7 +101,7 @@ app.get("/friends", requireLogin, (request, response) => {
     });
 });
 
-//dashboard screen
+//settings route
 app.get("/settings", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -106,12 +118,10 @@ app.get("/settings", requireLogin, (request, response) => {
     });
 });
 
-//dashboard screen
+//logout route screen
 app.get("/logout", (request, response) => {
   response.redirect(`/`);
 });
-
-
 
 
 
@@ -130,12 +140,13 @@ app.post("/login", (request, response) => {
           return response.redirect(301, "/dashboard");
         }
         response.send("That username and password was invalid");
-      });
+      }
+    );
   });
 });
 
 
-app.post("/register", (request, response) => {
+app.post("/register", requireUsernamePassword, (request, response) => {
   const password = request.body.password;
   bcrypt
     .hash(password, saltRounds)
@@ -167,7 +178,10 @@ app.post("/newtransaction", (request, response) => {
     dateandtime: dateandtime
   };
   console.log(transactionData);
-  Model.updateBalances(transactionData);
+  Model.updateBalances(transactionData)
+  .catch(error => {
+    return response.status(403).send("That amount exceeds your current balance.");
+  });
   response.redirect(301, 'dashboard');
 });
 
