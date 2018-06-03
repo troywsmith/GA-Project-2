@@ -6,24 +6,18 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const User = require("./models/User");
 const Transaction = require("./models/Transaction");
-
 const app = express();
 const saltRounds = 10;
+const requireLogin = (request, response, next) => {
+  if (!request.session.loggedIn) {
+    return response.status(403).send("You do not have access");
+  }
+  next();
+};
 
-// Allow override of HTTP methods based on the query string ?_method=DELETE
 app.use(methodOverride("_method"));
-
-// Add the HTTP body onto the request object in all route handlers.
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// Allow the port to be set by an environment variable when run (PORT=4000 node server.js)
-// and fallback to a default to 4567 if it's not supplied.
-const PORT = process.env.PORT || 4567;
-
-// Serve any files in the public folder at the "/public" route.
 app.use("/public", express.static("public"));
-
-// Tell Express that we use EJS in our views.
 app.set("view engine", "ejs");
 
 app.use(
@@ -34,24 +28,44 @@ app.use(
   })
 );
 
-app.set("view engine", "ejs");
+const PORT = process.env.PORT || 4567;
 
+//splash screen
 app.get("/", (request, response) => {
   console.log("about to render launch page");
   response.render("launch");
 });
 
+//account screen
+app.get("/account", requireLogin, (request, response) => {
+  Promise.all([
+    User.all(),
+    User.find(request.session.userId),
+    Transaction.all(),
+  ])
+  .then(([users, userData, transactions]) => {
+    console.log(`about to render account page`)
+    response.render(`account`, {users: users, user: userData, transactions: transactions});
+  });
+});
+
+
+
+
+
 app.post("/login", (request, response) => {
   User.findByUsername(request.body.username).then(user => {
     return bcrypt
       .compare(request.body.password, user.password_digest)
+      
       .then(isPasswordCorrect => {
-        if (isPasswordCorrect) {
-          request.session.loggedIn = true;
-          request.session.userId = user.id;
-          return response.redirect(301, "/homepage");
-        }
-        response.redirect(301, "/");
+        // if (isPasswordCorrect) {
+        //   request.session.loggedIn = true;
+        //   request.session.userId = user.id;
+        //   return response.redirect(301, "/account");
+        // }
+        console.log(isPasswordCorrect)
+        response.send("That username and password was invalid");
       });
   });
 });
@@ -71,31 +85,10 @@ app.post("/register", (request, response) => {
     .then(user => {
       request.session.loggedIn = true;
       request.session.userId = user.id;
-      console.log("about to redirect to route -> /homepage");
-      response.redirect(301, "/homepage");
+      console.log("about to redirect to route -> /account");
+      response.redirect(301, "/account");
     });
 });
-
-const requireLogin = (request, response, next) => {
-  if (!request.session.loggedIn) {
-    return response.status(403).send("You do not have access");
-  }
-  next();
-};
-
-app.get("/homepage", requireLogin, (request, response) => {
-  Promise.all([
-    User.all(),
-    User.find(request.session.userId),
-    Transaction.all(),
-  ])
-  .then(([users, userData, transactions]) => {
-    console.log(`about to render homepage`)
-    response.render(`homepage`, {users: users, user: userData, transactions: transactions});
-  });
-});
-
-
 
 app.post("/newtransaction", (request, response) => {
   //need to get logged in user id
@@ -104,7 +97,7 @@ app.post("/newtransaction", (request, response) => {
   //need to get selected amount of coins
   //need to reduce logged in user selected coin balance by selected amount
   //need to add selected users selected coin balance by selected amount
-  //need to bring back to homepage
+  //need to bring back to account page
   // Promise.all([
     const currentUserId = request.session.userId;
     const selectedUser = request.body.selectedfriend;
@@ -131,20 +124,14 @@ app.post("/newtransaction", (request, response) => {
     Transaction.create(transactionData);
     User.updateSender(updateData);
     User.updateReceiver(updateData);
-    response.redirect(301, 'homepage');
+    response.redirect(301, 'account');
 });
 
 
 
-
-
-
-
-
-app.post('/homepage', (request, response) => {
+app.post('/account', (request, response) => {
   User.find(request.session.userId)
   console.log(request.session.userId);
-
 })
 
 

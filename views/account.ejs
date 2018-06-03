@@ -1,0 +1,102 @@
+<% include ./partials/head %>
+
+  <body class="account">
+    <div class="page-container">
+      <div class="navbar">
+      </div>
+      <h2 class="usergreet">Hi again,
+        <%= user.username %> ! 
+      </h2>
+
+      <div class="paymentdiv">
+        <form action="/newtransaction" method="POST" class="paymentform">
+          <p>Exchange cryptocurrency</p>
+            <div class="frienddropdowndiv">
+              <input type="text" id="ajax" list="json-datalist" placeholder="username">
+              <datalist id="json-datalist"> 
+                  <option value="HTML">
+                <% users.forEach(user => { %>
+                  <option value="<%= user.username %>">
+                  <%= user.username %>
+                  </option>
+                  <% }) %>
+              </datalist>
+            </div>
+            <div class="currencydropdowndiv">
+              <input type="text" id="ajax" list="currencys" placeholder="currency">
+              <datalist id="currencys"> 
+                <option value="BTC">BTC</option>
+                <option value="LTC">LTC</option>
+                <option value="UFR">UFR</option>
+              </datalist>
+            </div>
+          <input type="number" name="amount" placeholder="amount">
+        </div>
+        </div>
+
+
+
+
+          <div class="paybuttons">
+            <button type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+
+
+
+
+
+      <div class="activitywalletdiv">
+        <div class="activityfeed">
+          <h2>Recent Activity</h4>
+            <ul>
+              
+              <% transactions.forEach(transaction => { %>
+                <hr>
+
+                <li>
+                  <%= transaction.sending_user_id %> sent
+                    <%= transaction.receiving_username %>
+                      <%= transaction.amount %>
+                        <%= transaction.coin %>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+        <div class="walletbalancesdiv">
+          <h2>Your Wallet</h4>
+            <div class="coinnameamount">
+              <ul class="walletcoinname">
+                <li>Bitcoin: </li>
+                <li>Litecoin: </li>
+                <li>Upfiring: </li>
+              </ul>
+              <ul class="walletcoins">
+                <li>
+                  <%= user.btc_bal%> BTC
+                </li>
+                <li>
+                  <%= user.ltc_bal%> LTC
+                </li>
+                <li>
+                  <%= user.ufr_bal%> UFR
+                </li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <% include ./partials/footer %>

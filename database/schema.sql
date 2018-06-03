@@ -9,7 +9,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT,
   password_digest TEXT,
-  btc_bal INTEGER,
+  troy_bal INTEGER,
   ltc_bal INTEGER,
   ufr_bal INTEGER
 );

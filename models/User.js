@@ -28,7 +28,7 @@ User.updateSender = data =>
     WHERE id = ${data.sending_user_id}`, data
   );
 
-  User.updateReceiver = data =>
+User.updateReceiver = data =>
   db.none(
     `UPDATE users
     SET btc_bal = btc_bal + ${data.amount}
