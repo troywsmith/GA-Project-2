@@ -12,13 +12,13 @@ Transaction.findById = id => {
 
 Transaction.create = transaction =>
   db.one(
-    `INSERT INTO transactions (sending_user_id, receiving_username, amount, coin) 
-    VALUES ($1, $2, $3, $4) 
+    `INSERT INTO transactions (sending_user_id, receiving_username, amount) 
+    VALUES ($1, $2, $3) 
     RETURNING *`,
-    [transaction.sending_user_id, transaction.receiving_username, transaction.amount, transaction.coin]
+    [transaction.sending_user_id, transaction.receiving_username, transaction.amount]
 );
 
-
+(${data.sending_user_id}, ${data.receiving_username}, ${data.amount})
 
 
 module.exports = Transaction;

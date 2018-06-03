@@ -9,15 +9,12 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT,
   password_digest TEXT,
-  troy_bal INTEGER,
-  ltc_bal INTEGER,
-  ufr_bal INTEGER
+  bal INTEGER
 );
 
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
   sending_user_id INTEGER REFERENCES users(id),
   receiving_username TEXT,
-  amount INTEGER,
-  coin TEXT
+  amount INTEGER
 );

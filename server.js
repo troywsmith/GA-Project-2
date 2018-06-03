@@ -4,8 +4,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
-const User = require("./models/User");
-const Transaction = require("./models/Transaction");
+const Model = require("./models/Model");
 const app = express();
 const saltRounds = 10;
 const requireLogin = (request, response, next) => {
@@ -39,9 +38,9 @@ app.get("/", (request, response) => {
 //account screen
 app.get("/account", requireLogin, (request, response) => {
   Promise.all([
-    User.all(),
-    User.find(request.session.userId),
-    Transaction.all(),
+    Model.all(),
+    Model.find(request.session.userId),
+    Model.all(),
   ])
   .then(([users, userData, transactions]) => {
     console.log(`about to render account page`)
@@ -54,7 +53,7 @@ app.get("/account", requireLogin, (request, response) => {
 
 
 app.post("/login", (request, response) => {
-  User.findByUsername(request.body.username).then(user => {
+  Model.findByUsername(request.body.username).then(user => {
     return bcrypt
       .compare(request.body.password, user.password_digest)
       
@@ -80,7 +79,7 @@ app.post("/register", (request, response) => {
         username: request.body.username,
         password_digest: hash,
       };
-      return User.create(newUser);
+      return Model.createUser(newUser);
     })
     .then(user => {
       request.session.loggedIn = true;
@@ -100,37 +99,36 @@ app.post("/newtransaction", (request, response) => {
   //need to bring back to account page
   // Promise.all([
     const currentUserId = request.session.userId;
-    const selectedUser = request.body.selectedfriend;
-    const selectedCurrency = request.body.selectedcurrency;
-    const selectedAmount = request.body.amount;
+    const selectedUser = request.body.selectedusername;
+    const selectedAmount = Number(request.body.amount);
+    // const selectedCurrency = request.body.selectedcurrency;
 
     const transactionData = {
       sending_user_id: currentUserId,
       receiving_username: selectedUser,
       amount: selectedAmount,
-      coin: selectedCurrency
     };
+
     console.log(transactionData);
 
-    const updateData = {
-      sending_user_id: currentUserId,
-      receiving_username: selectedUser,
-      amount: selectedAmount
-    }
-    console.log(updateData);
+    Model.updateBalances(transactionData);
 
-    // const selectedUserId = User.findIdbyUsername(selectedUser);
-    // console.log(selectedUserId);
-    Transaction.create(transactionData);
-    User.updateSender(updateData);
-    User.updateReceiver(updateData);
+    // const selectedUserId = user.findIdbyusername(selecteduser);
+    // console.log(selecteduserId);
+    // console.log('about to create a new row in transaction table')
+    // Transaction.create(transactionData);
+    // console.log('about to create a new row in transaction table')
+    // user.updateSender(transactionData);
+    // console.log('about to reduce sending users balance')
+    // Model.updateReceiver(userData);
+    // console.log('About to increase receiving users balance');
     response.redirect(301, 'account');
 });
 
 
 
 app.post('/account', (request, response) => {
-  User.find(request.session.userId)
+  user.find(request.session.userId)
   console.log(request.session.userId);
 })
 
