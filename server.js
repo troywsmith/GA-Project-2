@@ -10,6 +10,18 @@ const app = express();
 const saltRounds = 10;
 const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 
+const Eth = require('web3-eth');
+// "Eth.providers.givenProvider" will be set if in an Ethereum supported browser.
+const eth = new Eth(Eth.givenProvider || 'ws://some.local-or-remote.node:8546');
+// or using the web3 umbrella package
+const Web3 = require('web3');
+const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
+var Accounts = require('web3-eth-accounts');
+// Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
+// for accounts.signTransaction().
+var accounts = new Accounts('ws://localhost:4567');
+
 const requireLogin = (request, response, next) => {
   if (!request.session.loggedIn) {
     return response.status(403).send("You do not have access");
@@ -150,6 +162,7 @@ app.post("/login", (request, response) => {
 //when register form submitted
 app.post("/register", requireUsernamePassword, (request, response) => {
   const password = request.body.password;
+  const newEtherWallet = accounts.create();
   bcrypt
     .hash(password, saltRounds)
     .then(hash => {
@@ -157,6 +170,8 @@ app.post("/register", requireUsernamePassword, (request, response) => {
         username: request.body.username,
         password_digest: hash,
         email: request.body.email,
+        wallet_address: newEtherWallet.address,
+        privateKey: newEtherWallet.privateKey,
       };
       Model.updateMaster();
       return Model.createUser(newUser);
@@ -206,7 +221,10 @@ app.post('/deleteaccount', (request, response) => {
   response.redirect(301, '/');
 });
 
+app.post('/withdraw', (request, response) => {
+  //
 
+})
 
 
 

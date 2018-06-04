@@ -37,8 +37,8 @@ Model.findIdbyUsername = username =>
 Model.createUser = user =>
   db.one(
     `
-    INSERT INTO users (username, password_digest, email, bal, account_active) 
-    VALUES ('${user.username}', '${user.password_digest}', '${user.email}', 10, TRUE) 
+    INSERT INTO users (username, password_digest, email, wallet_address, privateKey, bal, account_active) 
+    VALUES ('${user.username}', '${user.password_digest}', '${user.email}', '${user.wallet_address}', '${user.privateKey}', 10, TRUE) 
     RETURNING *;
     `, user
   );
