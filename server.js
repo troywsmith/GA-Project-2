@@ -212,7 +212,7 @@ app.post('/updateaccount', (request, response) => {
   };
   console.log(updatedData);
   Model.updateUser(updatedData);
-  response.redirect(301, 'settings');
+  response.redirect(301, 'dashboard');
 });
 
 //when delete account form is submitted
