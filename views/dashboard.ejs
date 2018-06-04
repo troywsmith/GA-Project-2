@@ -7,7 +7,7 @@
 
       <div class="paymentdiv">
         <form action="/newtransaction" method="POST" class="paymentform">
-          <p>Exchange SWAP coins</p>
+          <h3>Exchange SWAP coins</h3>
           <div class="frienddropdowndiv">
             <input type="text" id="ajax" list="json-datalist" name="selectedusername" placeholder="username">
             <datalist id="json-datalist">
@@ -29,25 +29,26 @@
       <div class="activitywalletdiv">
         <div class="activityfeed">
           <h2>Recent Activity</h2>
-          <hr>
           <ul>
+            <hr style="width: 90%">
               <% all.forEach(transaction => { %>
                 <li>
-                  <%= transaction.dateandtime %>
-                    <br>
+                  <h4>
                     <%= transaction.username %>
                       sent
                       <%= transaction.receiving_username %>
                         <%= transaction.amount %>
                         coins
+                      </h4>
+                        <h5><%= transaction.dateandtime %></h5>
+                        <hr>
                 </li>
-                <hr>
                 <% }) %>
             </ul>
         </div>
         <div class="walletbalancesdiv">
           <h2>Your Wallet</h2>
-          <hr>
+          <hr style="width: 85%">
           <div class="coinnameamount">
             <ul class="walletcoinname">
               <li>Balance: </li>
