@@ -19,7 +19,7 @@ monitor.attach(initOptions, ["query", "error"]);
 // Import pg-promise and initialize the library with an empty object.
 const pgp = require("pg-promise")(initOptions);
 
-const databaseName = "cryptobank_app";
+const databaseName = "cryptobank_db";
 
 let connectionConfig;
 
