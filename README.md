@@ -1,6 +1,6 @@
-###Swap
-**Cryptocurrency exchange platform powered by SWAP tokens**
-LINK HERE
+### Swap
+*Cryptocurrency exchange platform powered by SWAP tokens*
+[Name of LINK HERE](actual link here)
 
 #Technology used
 The technologies, APIs, and modules you used and a description of each
@@ -26,9 +26,9 @@ Wireframes - used balsamiq to detail the flow of the app
 
 PICTURES HERE
 
-User Stories -
+User Stories
 
-PICTURE HERE
+![User Stories](/Users/troysmith/WDI/projects/project-two/images/userstories.png)
 
 Routes - designed the HTTP route architecture
 
