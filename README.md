@@ -24,7 +24,6 @@ Bodyparser - middleware used to parse incoming request bodies
 
 API's:
 - Web3 (Ethereum JavaScript API) - used to create ethereum wallet at time of user registration
-Moment 
 
 # Process
 Database - drew out the entity relationship diagram
@@ -33,9 +32,20 @@ PICTURE HERE
 
 Wireframes - used balsamiq to detail the flow of the app 
 
-PICTURES HERE
 
-User Stories
+![launch](/images/launchpage.png)
+![register](/images/registerpage.png)
+![login](/images/loginpage.png)
+![dashboard](/images/dashboardpage.png)
+![friends](/images/friendspage.png)
+![settings](/images/settings.png)
+
+![wireframes](/images/p2wireframes.pdf)
+
+
+
+
+User Stories:
 
 ![User Stories](/images/userstories.png)
 

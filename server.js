@@ -1,26 +1,27 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const methodOverride = require("method-override");
-const session = require("express-session");
-const moment = require('moment');
-const bcrypt = require("bcrypt");
 const Model = require("./models/Model");
-const alert = require('alert-node');
-const cheerio = require('cheerio');
-const {google} = require('googleapis');
+const express = require("express");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const moment = require('moment');
+const Web3 = require('web3');
+const Eth = require('web3-eth');
+const Accounts = require('web3-eth-accounts');
+
+// const path = require("path");
+// const methodOverride = require("method-override");
+// const alert = require('alert-node');
+// const cheerio = require('cheerio');
+// const {google} = require('googleapis');
 
 const app = express();
 const saltRounds = 10;
 const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 
-const Eth = require('web3-eth');
 // "Eth.providers.givenProvider" will be set if in an Ethereum supported browser.
 const eth = new Eth(Eth.givenProvider || 'ws://some.local-or-remote.node:8546');
-const Web3 = require('web3');
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
-var Accounts = require('web3-eth-accounts');
 // Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
 // for accounts.signTransaction().
 var accounts = new Accounts('ws://localhost:4567');
@@ -46,8 +47,6 @@ const url = oauth2Client.generateAuthUrl({
   // If you only need one scope you can pass it as a string
   scope: scopes
 });
-
-
 
 
 const requireLogin = (request, response, next) => {
