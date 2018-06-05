@@ -1,6 +1,6 @@
--- CREATE DATABASE cryptobank_db;
+CREATE DATABASE cryptobank_db;
 
--- \c cryptobank_db;
+\c cryptobank_db;
 
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS users;

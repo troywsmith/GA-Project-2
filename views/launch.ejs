@@ -1,7 +1,26 @@
-<% include ./partials/head %>
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/reset.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+</head>
+
+<body>
+    <div class="topnav">
+        <a id="logo" href="dashboard" style="float: left">Swap.</a>
+    </div>
 <div class="launchpage">
   <div class="appdescription">
-    <p>Instantly exchange cryptocurrency for free</p>
+    <p>Instantly exchange cryptocurrency with no fees</p>
   </div>
   <div class="loginregisterdiv">
     <div class="logindiv">
@@ -37,10 +56,15 @@
         <div>
             <input type="email" name="email" placeholder="email" />
         </div>
+        <div class="g-signin2" data-onsuccess="onSignIn">
+          <!-- <button>Sign in with Google</button> -->
+        </div>
         <div class="submitdiv">
             <button>Register</button>
         </div>
       </form>
+
+    
     </div>
 
   </div>

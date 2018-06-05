@@ -1,51 +1,53 @@
 <% include ./partials/head %>
   <% include ./partials/topnav %>
     <div class="dashboardpage">
-      <h2 class="pageheader">Hi again,
+      <h2 class="pageheader">Welcome to your dashboard,
         <%= user.username %> !
       </h2>
 
       <div class="paymentdiv">
         <form action="/newtransaction" method="POST" class="paymentform">
-          <h3>Exchange SWAP coins</h3>
-          <div class="frienddropdowndiv">
+          <h3 class="swap">Exchange SWAP coins</h3>
             <input type="text" id="ajax" list="json-datalist" name="selectedusername" placeholder="username">
-            <datalist id="json-datalist">
+              <datalist id="json-datalist">
               <% users.forEach(user => { %>
                 <option value="<%= user.username %>">
                   <%= user.username %>
                 </option>
                 <% }) %>
-            </datalist>
-          </div>
+              </datalist>
           <input type="number" name="amount" placeholder="amount">
-          <div class="paybuttons">
-            <button type="submit">Send</button>
-          </div>
+          <button type="submit">Send</button>
         </form>
       </div>
 
 
       <div class="activitywalletdiv">
+
+
         <div class="activityfeed">
           <h2>Recent Activity</h2>
           <ul>
             <hr style="width: 90%">
-              <% all.forEach(transaction => { %>
-                <li>
-                  <h4>
-                    <%= transaction.username %>
-                      sent
-                      <%= transaction.receiving_username %>
-                        <%= transaction.amount %>
+            <% all.forEach(transaction => { %>
+              <li>
+                <h4>
+                  <%= transaction.username %>
+                    sent
+                    <%= transaction.receiving_username %>
+                      <%= transaction.amount %>
                         coins
-                      </h4>
-                        <h5><%= transaction.dateandtime %></h5>
-                        <hr>
-                </li>
-                <% }) %>
-            </ul>
+                </h4>
+                <h5>
+                  <%= transaction.dateandtime %>
+                </h5>
+                <hr>
+              </li>
+              <% }) %>
+          </ul>
         </div>
+
+
         <div class="walletbalancesdiv">
           <h2>Your Wallet</h2>
           <hr style="width: 85%">
@@ -60,6 +62,9 @@
             </ul>
           </div>
         </div>
+
+
+
       </div>
     </div>
 

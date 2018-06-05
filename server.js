@@ -6,6 +6,10 @@ const session = require("express-session");
 const moment = require('moment');
 const bcrypt = require("bcrypt");
 const Model = require("./models/Model");
+const alert = require('alert-node');
+const cheerio = require('cheerio');
+const {google} = require('googleapis');
+
 const app = express();
 const saltRounds = 10;
 const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
@@ -22,6 +26,31 @@ var Accounts = require('web3-eth-accounts');
 // for accounts.signTransaction().
 var accounts = new Accounts('ws://localhost:4567');
 
+
+//google functions
+const oauth2Client = new google.auth.OAuth2(
+  "965791184759-tgsho327qaevv7mqn21loun3t0p6u4ih.apps.googleusercontent.com",
+  "Z1ysKdr52KutQr_tK9G_rJtH",
+  "https://swaptokens.herokuapp.com/oauth2callback"
+);
+
+// generate a url that asks permissions for Google+ and Google Calendar scopes
+const scopes = [
+  'https://www.googleapis.com/auth/plus.me',
+  'https://www.googleapis.com/auth/calendar'
+];
+
+const url = oauth2Client.generateAuthUrl({
+  // 'online' (default) or 'offline' (gets refresh_token)
+  access_type: 'offline',
+
+  // If you only need one scope you can pass it as a string
+  scope: scopes
+});
+
+
+
+
 const requireLogin = (request, response, next) => {
   if (!request.session.loggedIn) {
     return response.status(403).send("You do not have access");
@@ -29,14 +58,38 @@ const requireLogin = (request, response, next) => {
   next();
 };
 
-const requireUsernamePassword = (request, response, next) => {
+const requireRegisterCredentials = (request, response, next) => {
   let un = request.body.username;
   let pw = request.body.password;
-  if ((un == "") || (ps = "")) {
-      return response.status(403).send("Username and Password must be filled out");
+  let email = request.body.email;
+  if ((un == "") || (ps = "") || (email = "")) {
+    return response.render(`registererror`);
   }
   next();
 };
+
+const requireLoginCredentials = (request, response, next) => {
+  let un = request.body.username;
+  let pw = request.body.password;
+  if ((un == "") || (ps = "")) {
+    return response.render(`loginerror`);
+  }
+  next();
+};
+
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+}
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
 
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({
@@ -55,14 +108,14 @@ app.use(
 
 const PORT = process.env.PORT || 4567;
 
-//splash screen
+//launch route > launch screen
 app.get("/", (request, response) => {
   console.log("about to render launch page");
   console.log(timestamp);
   response.render("launch");
 });
 
-//dashboard screen
+//dashboard route > dashboard screen
 app.get("/dashboard", requireLogin, (request, response) => {
   Promise.all([
       Model.all(),
@@ -81,7 +134,7 @@ app.get("/dashboard", requireLogin, (request, response) => {
     });
 });
 
-//depositwithdraw screen
+//deposit/withdraw route > deposit/withdraw screen
 app.get("/depositwithdraw", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -98,7 +151,7 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
     });
 });
 
-//friends screen
+//friends route > friend screen 
 app.get("/friends", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -115,7 +168,7 @@ app.get("/friends", requireLogin, (request, response) => {
     });
 });
 
-//settings route
+//settings route > settings screen
 app.get("/settings", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -132,18 +185,17 @@ app.get("/settings", requireLogin, (request, response) => {
     });
 });
 
-//logout route screen
+//logout route > redirect to launch screen
 app.get("/logout", (request, response) => {
   response.redirect(`/`);
 });
 
-
-
-
-
-
 //when login form submitted
-app.post("/login", (request, response) => {
+app.post("/login", requireLoginCredentials, (request, response) => {
+  console.log(request.body.username);
+  if (request.body.username == "") {
+    return response.render(`loginerror`);
+  };
   Model.findByUsername(request.body.username).then(user => {
     return bcrypt
       .compare(request.body.password, user.password_digest)
@@ -153,14 +205,12 @@ app.post("/login", (request, response) => {
           request.session.userId = user.id;
           return response.redirect(301, "/dashboard");
         }
-        response.send("That username and password was invalid");
-      }
-    );
+      })
   });
 });
 
 //when register form submitted
-app.post("/register", requireUsernamePassword, (request, response) => {
+app.post("/register", requireRegisterCredentials, (request, response) => {
   const password = request.body.password;
   const newEtherWallet = accounts.create();
   bcrypt
@@ -185,7 +235,7 @@ app.post("/register", requireUsernamePassword, (request, response) => {
     });
 });
 
-//when payment form is submitted
+//when transaction form is submitted
 app.post("/newtransaction", (request, response) => {
   const transactionData = {
     sending_user_id: request.session.userId,
@@ -194,11 +244,16 @@ app.post("/newtransaction", (request, response) => {
     dateandtime: moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
   };
   console.log(transactionData);
-  Model.updateBalances(transactionData)
-  .catch(error => {
-    return response.status(403).send("That amount exceeds your current balance.");
-  });
-  response.redirect(301, 'dashboard');
+  Model.updateBalances(transactionData).then(function (result) {
+      if (!result) {
+        console.log("nothing was returned");
+      }
+      response.redirect(301, 'dashboard');
+    })
+    .catch(function (err) {
+      console.log('catch function was hit', err);
+      response.redirect(301, 'dashboard');
+    });
 });
 
 //when update profile form is submitted
@@ -221,11 +276,11 @@ app.post('/deleteaccount', (request, response) => {
   response.redirect(301, '/');
 });
 
+//when user tries to withdraw
 app.post('/withdraw', (request, response) => {
-  //
+  //make ether transaction from master wallet to user wallet
 
 })
-
 
 
 app.listen(PORT, () => {

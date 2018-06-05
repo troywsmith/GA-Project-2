@@ -7,13 +7,19 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Place favicon.ico in the root directory -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/reset.css">
     <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+    <meta name="google-signin-client_id" content="Y965791184759-tgsho327qaevv7mqn21loun3t0p6u4ih.apps.googleusercontent.com">
 </head>
+
 <body>
-    <header>
-        <a class="appname" href="/dashboard">Swap</a>
-    </header>
+    <div class="topnav">
+        <a id="logo" href="dashboard">Swap.</a>
+        <a href="depositwithdraw">Deposit/Withdraw</a>
+        <a href="friends">Users</a>
+        <a href="settings">Settings</a>
+        <a href="logout" onclick="signOut();">Sign out</a>
+    </div>

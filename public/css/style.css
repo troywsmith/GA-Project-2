@@ -5,15 +5,7 @@ body {
   font-family: 'Jua', sans-serif;
   color: white;
   text-align: center;
-  overflow: scroll;
-}
-
-.launchpage {
-  max-width: 1000px;
-}
-
-.dashboardpage {
-  max-width: 1000px;
+  overflow: auto;
 }
 
 .pageheader {
@@ -39,15 +31,11 @@ h5 {
 input {
   background-color: #F8E9A1;
   border: none;
-  width: 150px;
+  width: 85%;
   height: 30px;
-  border-radius: 25px;
+  border-radius: 5px;
   text-align: center;
   font-size: 15px;
-}
-
-input:focus {
-  height: 40px;
 }
 
 button {
@@ -66,56 +54,48 @@ button:hover {
 }
 
 /* header  */
-header {
-  height: 75px;
+/* header {
+  height: 50px;
   font-size: 40px;
-}
+  width: 100%;
+  padding: 10px 0;
+  background: #374785;
+  color: #A8D0E6;
+} */
 
-.appname {
-  position: absolute;
-  top: 2%;
-  left: 2%;
-  font-family: 'Jua', sans-serif;
-  text-decoration: none;
-  color: white;
-  text-align: left;
-  font-size: 40px;
-  color: F7;
-}
 
 
 
 /* top nav bar */
 .topnav {
-  overflow: hidden;
+  overflow: auto;
   background: #374785;
-
-  /* width: 100%;
-  height: 50px;
-  overflow: hidden;
+  width: 100%;
+  height: 70px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-content: center;
-  list-style-type: none; */
+  justify-content: space-around;
 }
 
-.topnav a {
-  float: left;
-  display: block;
+.topnav * {
   color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 20px;
+  width: 20%;
+  padding: 27px 0;
+}
+
+#logo {
+  font-family: 'Jua', sans-serif;
+  text-decoration: none;
+  font-size: 40px;
+  background-color: transparent;
+  padding: 12px 0;
 }
 
 .topnav a:hover {
   background-color: #F76C6C;
-  color: black;
-}
-
-.topnav .burger {
-  display: none;
 }
 
 
@@ -124,13 +104,11 @@ header {
 /* login or register page */
 .appdescription {
   font-size: 35px;
-  text-align: center;
   padding: 20px;
 }
 
 .loginregisterdiv {
   width: 50%;
-  text-align: center;
   margin: auto;
 }
 
@@ -168,40 +146,17 @@ header {
   padding: 5px;
 }
 
-
-
-
-
-
 /* dashboard page */
-.usergreet {
-  margin: 20px;
-}
-
 .paymentdiv {
   display: flex;
   justify-content: center;
-  margin: 40px auto;
-  width: 50%;
-  text-align: left;
+  margin: auto;
+  width: 60%;
   font-size: 20px;
 }
 
 .paymentdiv * {
-  margin: 5px;
-  width: 250px;
-  text-align: center;
-}
-
-.paymentinfo {
-  /* display: flex;
-  justify-content: center; */
-  padding: 40px;
-}
-
-.paymentinfo * {
-  width: 120px;
-  height: 40px;
+  margin: 10px;
 }
 
 .activitywalletdiv {
@@ -211,15 +166,14 @@ header {
   justify-content: space-around;
   width: 100%;
   height: 500px;
-  text-align: center;
 }
 
 .activityfeed {
-  height: 80%;
+  height: 90%;
   width: 45%;
   border-radius: 25px;
   background-color: #374785;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .activityfeed * {
@@ -228,7 +182,7 @@ header {
 }
 
 .walletbalancesdiv {
-  height: 80%;
+  height: 90%;
   width: 45%;
   border-radius: 25px;
   background-color: #374785;
@@ -251,9 +205,6 @@ header {
   font-size: 30px;
 }
 
-
-
-
 /* friend page */
 
 .friendsearchdiv * {
@@ -269,7 +220,6 @@ header {
   margin: 10px;
 }
 
-
 /* Deposit Withdraw Page  */
 .container {
   width: 100%;
@@ -278,24 +228,23 @@ header {
 
 .deposit {
   float: left;
-  width: 40%;
-  height: 400px;
-  margin: 1%;
+  width: 35%;
+  height: 500px;
+  margin: 25px auto auto 10%;
   padding: 10px;
   background-color: #374785;
   overflow-wrap: break-word;
-
 }
 
 .deposit * {
-  margin: 20px;
+  margin: auto;
 }
 
 .withdraw {
   float: right;
-  width: 40%;
-  height: 400px;
-  margin: 1%;
+  width: 35%;
+  height: 500px;
+  margin: 25px 10% auto auto;
   padding: 10px;
   background-color: #374785;
 }
@@ -314,45 +263,42 @@ header {
 }
 
 
+
+
 /* settings page */
-
-
 .profilesettings {
   padding: 20px;
   background: #374785;
-  margin: 30px;
+  margin: 70px;
   border-radius: 25px;
-
 }
 
 .profilesettings * {
-  padding: 5px;
-  width: 300px;
+  padding: 10px;
 }
 
-.profilesettings button {
-  width: 200px;
-}
 
-.deletediv {
 
-}
-
+/* 
 /* footer */
 footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 5%;
-  color: white;
-  text-align: center;
-}
-
-footer * {
-  margin: 10px;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:50px;
+  width:100%;
+  background: #374785;
+  margin: auto;
 }
 
 
 
+
+
+
+/* error messages */
+
+.error {
+  color: red;
+} */ */
 
