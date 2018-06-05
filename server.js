@@ -17,7 +17,6 @@ const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 const Eth = require('web3-eth');
 // "Eth.providers.givenProvider" will be set if in an Ethereum supported browser.
 const eth = new Eth(Eth.givenProvider || 'ws://some.local-or-remote.node:8546');
-// or using the web3 umbrella package
 const Web3 = require('web3');
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
