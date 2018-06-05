@@ -2,69 +2,69 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Place favicon.ico in the root directory -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/reset.css">
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/public/css/reset.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <p class="appname" >Swap.</p>
-    </header>
-<div class="launchpage">
-  <div class="appdescription">
-    <p>Instantly exchange cryptocurrency with no fees</p>
+  <div class="topnav">
+    <a id="logo" href="dashboard" style="float: left">Swap.</a>
   </div>
-  <div class="loginregisterdiv">
-    <div class="logindiv">
-      <h2>Sign in to Swap</h2>
-
-      <form class="loginform" action="/login" method="POST">
-        <div>
-          <input type="text" name="username" placeholder="username" />
-        </div>
-        <div>
-          <input type="text" name="password" placeholder="password"/>
-        </div>
-        <div class="submitdiv">
-          <button>Login</button>
-        </div>
-      </form>
+  <div class="launchpage">
+    <div class="appdescription">
+      <p>Instantly exchange cryptocurrency with no fees</p>
     </div>
+    <div class="loginregisterdiv">
+      <div class="logindiv">
+        <h2>Sign in to Swap</h2>
+        <form class="loginform" action="/login" method="POST">
+          <div>
+            <input type="text" name="username" placeholder="username" />
+          </div>
+          <div>
+            <input type="text" name="password" placeholder="password" />
+          </div>
+          <div class="submitdiv">
+            <button>Login</button>
+          </div>
+        </form>
+      </div>
 
-    <div class="memo">
+      <div class="memo">
         <h2>Register for an account today and receive 10 SWAP coins for FREE!</h2>
       </div>
 
-      
-    <div class="registerdiv">
-      <h2>Create a new account</h2>
-      <div>
-          <p class="error">
-              "Invalid username/password combination. Please try again."
-          </p>
-    </div>
-      <form class="registerform" action="/register" method="POST">
-        <div>
-          <input type="text" name="username" placeholder="username"/>
-        </div>
-        <div>
-          <input type="text" name="password" placeholder="password" />
-        </div>
-        <div>
-            <input type="email" name="email" placeholder="email" />
-        </div>
-        <div class="submitdiv">
-            <button>Register</button>
-        </div>
-      </form>
-    </div>
 
-  </div>
+      <div class="registerdiv">
+        <h2>Create a new account</h2>
+        <div>
+          <p class="error">
+            "Invalid username/password combination. Please try again."
+          </p>
+        </div>
+        <form class="registerform" action="/register" method="POST">
+          <div>
+            <input type="text" name="username" placeholder="username" />
+          </div>
+          <div>
+            <input type="text" name="password" placeholder="password" />
+          </div>
+          <div>
+            <input type="email" name="email" placeholder="email" />
+          </div>
+          <div class="submitdiv">
+            <button>Register</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
     <% include ./partials/footer %>

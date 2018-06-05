@@ -12,7 +12,7 @@ const Accounts = require('web3-eth-accounts');
 // const methodOverride = require("method-override");
 // const alert = require('alert-node');
 // const cheerio = require('cheerio');
-// const {google} = require('googleapis');
+// const google = require('googleapis');
 
 const app = express();
 const saltRounds = 10;
@@ -24,29 +24,29 @@ const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546
 const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
 // Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
 // for accounts.signTransaction().
-var accounts = new Accounts('ws://localhost:4567');
+const accounts = new Accounts('ws://localhost:4567');
 
 
-//google functions
-const oauth2Client = new google.auth.OAuth2(
-  "965791184759-tgsho327qaevv7mqn21loun3t0p6u4ih.apps.googleusercontent.com",
-  "Z1ysKdr52KutQr_tK9G_rJtH",
-  "https://swaptokens.herokuapp.com/oauth2callback"
-);
+// //google functions
+// const oauth2Client = new google.auth.OAuth2(
+//   "965791184759-tgsho327qaevv7mqn21loun3t0p6u4ih.apps.googleusercontent.com",
+//   "Z1ysKdr52KutQr_tK9G_rJtH",
+//   "https://swaptokens.herokuapp.com/oauth2callback"
+// );
 
-// generate a url that asks permissions for Google+ and Google Calendar scopes
-const scopes = [
-  'https://www.googleapis.com/auth/plus.me',
-  'https://www.googleapis.com/auth/calendar'
-];
+// // generate a url that asks permissions for Google+ and Google Calendar scopes
+// const scopes = [
+//   'https://www.googleapis.com/auth/plus.me',
+//   'https://www.googleapis.com/auth/calendar'
+// ];
 
-const url = oauth2Client.generateAuthUrl({
-  // 'online' (default) or 'offline' (gets refresh_token)
-  access_type: 'offline',
+// const url = oauth2Client.generateAuthUrl({
+//   // 'online' (default) or 'offline' (gets refresh_token)
+//   access_type: 'offline',
 
-  // If you only need one scope you can pass it as a string
-  scope: scopes
-});
+//   // If you only need one scope you can pass it as a string
+//   scope: scopes
+// });
 
 
 const requireLogin = (request, response, next) => {
@@ -75,21 +75,21 @@ const requireLoginCredentials = (request, response, next) => {
   next();
 };
 
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-}
+// function onSignIn(googleUser) {
+//   var profile = googleUser.getBasicProfile();
+//   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//   console.log('Name: ' + profile.getName());
+//   console.log('Image URL: ' + profile.getImageUrl());
+// }
 
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
-}
+// function signOut() {
+//   var auth2 = gapi.auth2.getAuthInstance();
+//   auth2.signOut().then(function () {
+//     console.log('User signed out.');
+//   });
+// }
 
-app.use(methodOverride("_method"));
+// app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
