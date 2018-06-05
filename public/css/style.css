@@ -41,7 +41,7 @@ input {
 button {
   background: #F76C6C;
   color: white;
-  width: 200px;
+  width: 60%;
   height: 40px;
   border: none;
   border-radius: 25px;
@@ -52,18 +52,6 @@ button {
 button:hover {
   background: rgb(255, 54, 54);
 }
-
-/* header  */
-/* header {
-  height: 50px;
-  font-size: 40px;
-  width: 100%;
-  padding: 10px 0;
-  background: #374785;
-  color: #A8D0E6;
-} */
-
-
 
 
 /* top nav bar */
@@ -108,12 +96,20 @@ button:hover {
 }
 
 .loginregisterdiv {
-  width: 50%;
+  width: 500px;
   margin: auto;
 }
 
-.loginregisterdiv p {
-  padding: 5px;
+@media screen and (max-width: 600px) {
+  .loginregisterdiv {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .loginregisterdiv {
+    width: 600px;
+  }
 }
 
 .submitdiv {
@@ -125,8 +121,8 @@ button:hover {
   background: #374785;
   margin: 30px auto;
   border-radius: 25px;
-  min-width: 250px;
-  min-height: 200px;
+  /* min-width: 250px;
+  min-height: 200px; */
 }
 
 .logindiv * {
@@ -136,10 +132,10 @@ button:hover {
 .registerdiv {
   padding: 20px;
   background: #374785;
-  margin: 50px auto;
+  margin: 30px auto;
   border-radius: 25px;
-  min-width: 250px;
-  min-height: 200px;
+  /* min-width: 250px;
+  min-height: 200px; */
 }
 
 .registerdiv * {
@@ -285,13 +281,49 @@ footer {
   position:fixed;
   left:0px;
   bottom:0px;
-  height:50px;
+  height:70px;
   width:100%;
   background: #374785;
   margin: auto;
 }
 
+/* footer * {
+  margin: 10px auto;
+} */
 
+footer .left {
+ width: 50%;
+ text-align: left;
+ float: left;
+ height: 100%;
+}
+
+footer .left * {
+  margin: 10px auto auto 20px;
+}
+
+footer .right {
+  width: 50%;
+  text-align: right;
+  float: right;
+  height: 100%;
+}
+
+
+/* Style all font awesome icons */
+.fa {
+  padding: 30px;
+  font-size: 30px;
+  width: 7px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
 
 
 
