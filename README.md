@@ -1,9 +1,8 @@
-### Swap
+# Swap
 *Cryptocurrency exchange platform powered by SWAP tokens*
-[Name of LINK HERE](actual link here)
+[Swap App](https://swaptokens.herokuapp.com/)
 
-#Technology used
-The technologies, APIs, and modules you used and a description of each
+# Technology used
 HTML / EJS - Used EJS to render information on the page
 CSS - Used to style my app
 Node/Express - Built server using Express
@@ -14,7 +13,7 @@ Moment: - Used to timestamp transactions
 Bcrypt - used to hash user passwords
 Bodyparser - middleware used to parse incoming request bodies
 API's:
-Web3 (Ethereum JavaScript API) - used to create ethereum wallet at time of user registration
+- Web3 (Ethereum JavaScript API) - used to create ethereum wallet at time of user registration
 Moment 
 
 # Process
