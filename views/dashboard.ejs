@@ -46,14 +46,20 @@
           <% all.forEach(transaction => { %>
             <li>
               <div class="left">
-                  <img src="https://previews.123rf.com/images/asmati/asmati1602/asmati160202968/52180906-user-sign-flat-style-icon-on-transparent-background.jpg">
+                <img src="https://previews.123rf.com/images/asmati/asmati1602/asmati160202968/52180906-user-sign-flat-style-icon-on-transparent-background.jpg">
               </div>
               <div class="middle">
-                  <p> <%= transaction.username %> paid <%= transaction.receiving_username %> </p>
-                  <p id="timestamp"><%= transaction.dateandtime %></p>
+                <p>
+                  <%= transaction.username %> paid
+                    <%= transaction.receiving_username %>
+                </p>
+                <p id="timestamp">
+                  <%= transaction.dateandtime %>
+                </p>
               </div>
               <div class="right">
-                  <p id="transactionamount"> <%= transaction.amount %> SWAP </p>
+                <p id="transactionamount">
+                  <%= transaction.amount %> SWAP </p>
               </div>
             </li>
             <hr>

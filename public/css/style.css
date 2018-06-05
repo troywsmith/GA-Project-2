@@ -206,6 +206,10 @@ button:hover {
   margin: 5px auto;
 }
 
+#exchange {
+  margin: 12px auto;
+}
+
 #usernamepayment {
   width: 70%;
   margin: 0 5px 0 0;

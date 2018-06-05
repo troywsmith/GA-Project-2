@@ -7,12 +7,11 @@ const moment = require('moment');
 const Web3 = require('web3');
 const Eth = require('web3-eth');
 const Accounts = require('web3-eth-accounts');
-
+// const google = require('googleapis');
 // const path = require("path");
 // const methodOverride = require("method-override");
 // const alert = require('alert-node');
 // const cheerio = require('cheerio');
-const google = require('googleapis');
 
 const app = express();
 const saltRounds = 10;
@@ -25,7 +24,6 @@ const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
 // Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
 // for accounts.signTransaction().
 const accounts = new Accounts('ws://localhost:4567');
-
 
 // //google functions
 // const oauth2Client = new google.auth.OAuth2(
@@ -43,13 +41,10 @@ const accounts = new Accounts('ws://localhost:4567');
 //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 // }
 
-
 // app.post("/google", onSignIn, (request, response) => {
 //   console.log("about to redirect to route -> /dashboard");
 //   response.redirect(301, "/dashboard");
 // });
-
-
 
 const requireLogin = (request, response, next) => {
   if (!request.session.loggedIn) {
@@ -76,7 +71,6 @@ const requireLoginCredentials = (request, response, next) => {
   }
   next();
 };
-
 
 // app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({
@@ -116,7 +110,7 @@ app.get("/dashboard", requireLogin, (request, response) => {
         all: all,
         users: users,
         user: userData,
-        transactions: transactions
+        transactions: transactions,
       });
     });
 });
