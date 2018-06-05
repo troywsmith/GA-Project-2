@@ -12,7 +12,7 @@ const Accounts = require('web3-eth-accounts');
 // const methodOverride = require("method-override");
 // const alert = require('alert-node');
 // const cheerio = require('cheerio');
-// const google = require('googleapis');
+const google = require('googleapis');
 
 const app = express();
 const saltRounds = 10;
@@ -34,19 +34,21 @@ const accounts = new Accounts('ws://localhost:4567');
 //   "https://swaptokens.herokuapp.com/oauth2callback"
 // );
 
-// // generate a url that asks permissions for Google+ and Google Calendar scopes
-// const scopes = [
-//   'https://www.googleapis.com/auth/plus.me',
-//   'https://www.googleapis.com/auth/calendar'
-// ];
+// function onSignIn(googleUser) {
+//   console.log('trying to sign in with google');
+//   var profile = googleUser.getBasicProfile();
+//   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//   console.log('Name: ' + profile.getName());
+//   console.log('Image URL: ' + profile.getImageUrl());
+//   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+// }
 
-// const url = oauth2Client.generateAuthUrl({
-//   // 'online' (default) or 'offline' (gets refresh_token)
-//   access_type: 'offline',
 
-//   // If you only need one scope you can pass it as a string
-//   scope: scopes
+// app.post("/google", onSignIn, (request, response) => {
+//   console.log("about to redirect to route -> /dashboard");
+//   response.redirect(301, "/dashboard");
 // });
+
 
 
 const requireLogin = (request, response, next) => {
@@ -75,19 +77,6 @@ const requireLoginCredentials = (request, response, next) => {
   next();
 };
 
-// function onSignIn(googleUser) {
-//   var profile = googleUser.getBasicProfile();
-//   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-//   console.log('Name: ' + profile.getName());
-//   console.log('Image URL: ' + profile.getImageUrl());
-// }
-
-// function signOut() {
-//   var auth2 = gapi.auth2.getAuthInstance();
-//   auth2.signOut().then(function () {
-//     console.log('User signed out.');
-//   });
-// }
 
 // app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({

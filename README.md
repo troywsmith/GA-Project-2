@@ -3,8 +3,7 @@
 
 [Swap App](https://swaptokens.herokuapp.com/)
 
-# Instructions
-## Instructions for downloading the code and running it on localhost
+## Instructions for running Swap on localhost
 
 ### Clone the repo to your computer
 ```
@@ -40,7 +39,7 @@ node server.js
 http://localhost:4567
 
 
-# Technology
+## Technology
 HTML / EJS - Used EJS to render information on the page
 
 CSS - Used to style my app
@@ -62,14 +61,14 @@ Bodyparser - middleware used to parse incoming request bodies
 API's:
 - Web3 (Ethereum JavaScript API) - used to create ethereum wallet at time of user registration
 
-# Process
+## Process
 
 ### Wireframes
 used balsamiq to detail the flow of the app 
 
 ![launch](/images/launchpage.png)
 ![register](/images/registerpage.png)
-![login](/images/loginpage.png)
+![login](/images/signin.png)
 ![dashboard](/images/dashboardpage.png)
 ![friends](/images/friendspage.png)
 ![settings](/images/settingspage.png)
@@ -91,7 +90,7 @@ when you are confident with your ERD, define its tables in SQL and put into a sc
 ### Models
 you now have a working, populated database. Write a model with methods that use pg-promise to perform CRUD on the DB
 
-# Timeline (completed in 4 days)
+## Timeline (completed in 4 days)
 - Thursday, May 31st (5pm) - Prompt received
 
 - Thursday, May 31st (5pm-8pm) - Planning (wireframes, user stories, ERD)
@@ -103,7 +102,7 @@ you now have a working, populated database. Write a model with methods that use 
 - Wednesday, June 6th - Project Presentation
 
 
-# Video Walk Through
+## Video Walk Through
 
 [Swap App](https://swaptokens.herokuapp.com/)
 
@@ -117,7 +116,7 @@ A video presentation that:
 - Is uploaded to a video steaming platform
 
 
-# Proud Code Snippet
+## Proud Code Snippet
 
 ```javascript
 //when transaction form is submitted
@@ -142,8 +141,9 @@ app.post("/newtransaction", (request, response) => {
 });
 ```
 
-# Next Steps
-- Improve error handlers
-- Googe sign in
+## Next Steps
 - Swap transaction to external wallet
+- Improve error handlers
+- User notifications/prompts
+- Googe sign in
 - Design logo
