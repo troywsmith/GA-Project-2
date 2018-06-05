@@ -4,14 +4,14 @@
 [Swap App](https://swaptokens.herokuapp.com/)
 
 # Instructions
-Instructions for downloading the code and running it on localhost
+## Instructions for downloading the code and running it on localhost
 
-clone the repo to your computer
+### Clone the repo to your computer
 ```
 git@git.generalassemb.ly:troywsmith/project-two.git
 ```
 
-Install dependencies
+### Install dependencies while in repo
 
 ```
 npm iniit
@@ -24,18 +24,18 @@ npm i web3
 npm i express
 ```
 
-Create the database, tables, and seed data
+### Create the database, tables, and seed data
 ```
 psql -f database/schema.sql
 psql -f database/seed.sql
 ```
 
-Run the application
+### Run the application
 ```
 node server.js
 ```
 
-Open the web browser and go to:
+### Open the web browser and go to the following
 
 http://localhost:4567
 
@@ -64,7 +64,7 @@ API's:
 
 # Process
 
-## Wireframes
+### Wireframes
 used balsamiq to detail the flow of the app 
 
 ![launch](/images/launchpage.png)
@@ -74,21 +74,21 @@ used balsamiq to detail the flow of the app
 ![friends](/images/friendspage.png)
 ![settings](/images/settingspage.png)
 
-## User Stories
+### User Stories
 
 ![User Stories](/images/userstories.png)
 
-## Database
+### Database
 drew out the entity relationship diagram
 
 PICTURE HERE
 
-## Routes - designed the HTTP route architecture
+### Routes - designed the HTTP route architecture
 
-## Schema & Seeds
+### Schema & Seeds
 when you are confident with your ERD, define its tables in SQL and put into a schema file. For easier testing, write a seed file as well to insert sample data to your DB.
 
-## Models
+### Models
 you now have a working, populated database. Write a model with methods that use pg-promise to perform CRUD on the DB
 
 # Timeline (completed in 4 days)
