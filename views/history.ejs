@@ -1,0 +1,50 @@
+<% include ./partials/head %>
+    <div class="historypage">
+        <div class="pageheader">
+            <h2>Your History</h2>
+        </div>
+
+        <div class="searchdiv">
+            <h3>Search for a transaction</h3>
+            <input type="text" id="ajax" list="transaction-list" name="username search" placeholder="username">
+            <datalist id="transaction-list">
+                <% users.forEach(user => { %>
+                    <option value="<%= user.username %>">
+                        <%= user.username %>
+                    </option>
+                    <% }) %>
+            </datalist>
+        </div>
+
+        <div class="activityfeed">
+
+            <ul class="transactionlist">
+                <br>
+                <% userTransactions.forEach(transaction => { %>
+                    <li>
+                        <div class="left">
+                            <img src="https://previews.123rf.com/images/asmati/asmati1602/asmati160202968/52180906-user-sign-flat-style-icon-on-transparent-background.jpg">
+                        </div>
+                        <div class="middle">
+                            <p>
+                                <%= transaction.username %> paid
+                                    <%= transaction.receiving_username %>
+                            </p>
+                            <p id="timestamp">
+                                <%= transaction.dateandtime %>
+                            </p>
+                        </div>
+                        <div class="right">
+                            <p id="transactionamount">
+                                <%= transaction.amount %> SWAP </p>
+                        </div>
+                    </li>
+                    <hr>
+                    <% }) %>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <% include ./partials/footer %>

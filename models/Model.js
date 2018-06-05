@@ -94,9 +94,19 @@ Model.allTransactions = () => {
 };
 
 Model.findTransactionById = id => {
-  return db.one("SELECT * FROM transactions WHERE id = ${id}", {
-    id: id
-  });
+  return db.one("SELECT * FROM transactions WHERE id = ${id}", 
+  {id: id});
+};
+
+Model.findTransactionsByUserId = (id) => {
+  return db.any(`
+  SELECT * 
+  FROM users, transactions
+  WHERE (users.id = transactions.sending_user_id AND users.id = ${id})
+  OR (users.username = transactions.receiving_username AND users.id = ${id})
+  ORDER BY transactions.dateandtime DESC
+`, 
+  {id: id});
 };
 
 

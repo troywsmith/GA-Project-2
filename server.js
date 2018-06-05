@@ -132,21 +132,26 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
     });
 });
 
-//friends route > friend screen 
-app.get("/friends", requireLogin, (request, response) => {
+//history route > history screen 
+app.get("/history", requireLogin, (request, response) => {
   Promise.all([
-      Model.allUsers(),
-      Model.findUser(request.session.userId),
-      Model.allTransactions(),
-    ])
-    .then(([users, userData, transactions]) => {
-      console.log(`about to render friends page`)
-      response.render(`friend`, {
-        users: users,
-        user: userData,
-        transactions: transactions
-      });
+    Model.all(),
+    Model.allUsers(),
+    Model.findUser(request.session.userId),
+    Model.allTransactions(),
+    Model.findTransactionsByUserId(request.session.userId),
+  ])
+  .then(([all, users, userData, transactions, userTransactions]) => {
+    console.log(`about to render history page`)
+    console.log(userTransactions);
+    response.render(`history`, {
+      all: all,
+      users: users,
+      user: userData,
+      transactions: transactions,
+      userTransactions: userTransactions,
     });
+  });
 });
 
 //settings route > settings screen
