@@ -3,7 +3,7 @@
 
 [Swap App](https://swaptokens.herokuapp.com/)
 
-# Technology used
+# Technology
 HTML / EJS - Used EJS to render information on the page
 
 CSS - Used to style my app
@@ -37,7 +37,7 @@ PICTURES HERE
 
 User Stories
 
-![User Stories](/Users/troysmith/WDI/projects/project-two/images/userstories.png)
+![User Stories](/images/userstories.png)
 
 Routes - designed the HTTP route architecture
 
@@ -74,7 +74,7 @@ Is uploaded to a video steaming platform
 # Proud Code Snippet
 A code snippet of a part of the app you're particularly proud of
 
-# Next steps
+# Next Steps
 Any things you plan to fix or features you plan to add
 
 # Instructions
