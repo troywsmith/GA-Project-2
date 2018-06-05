@@ -1,76 +1,65 @@
 <% include ./partials/head %>
   <% include ./partials/topnav %>
     <div class="dashboardpage">
-      <h2 class="pageheader">Welcome to your dashboard,
-        <%= user.username %> !
-      </h2>
 
-      <div class="paymentdiv">
-        <form action="/newtransaction" method="POST" class="paymentform">
-          <h3 class="swap">Exchange SWAP coins</h3>
-            <input type="text" id="ajax" list="json-datalist" name="selectedusername" placeholder="username">
-              <datalist id="json-datalist">
+      <div class="topdiv">
+        <p>Welcome to your dashboard!</p>
+      </div>
+
+      <div class="container">
+        <div class="userbalancecard">
+          <img src="https://previews.123rf.com/images/asmati/asmati1602/asmati160202968/52180906-user-sign-flat-style-icon-on-transparent-background.jpg">
+          <p id="username">
+            <%= user.username %>
+          </p>
+          <p id="balance">Balance:
+            <%= user.bal%> SWAP</p>
+        </div>
+
+        <div class="emptydiv">
+        </div>
+
+        <div class="paymentdiv">
+          <form action="/newtransaction" method="POST" class="paymentform">
+            <h3 id="exchange">Exchange SWAP coins</h3>
+            <input id="usernamepayment" type="text" list="datalist" name="selectedusername" placeholder="  username">
+            <datalist id="datalist">
               <% users.forEach(user => { %>
                 <option value="<%= user.username %>">
                   <%= user.username %>
                 </option>
                 <% }) %>
-              </datalist>
-          <input type="number" name="amount" placeholder="amount">
-          <button type="submit">Send</button>
-        </form>
-      </div>
-
-
-      <div class="activitywalletdiv">
-
-
-        <div class="activityfeed">
-          <h2>Recent Activity</h2>
-          <ul>
-            <hr style="width: 90%">
-            <% all.forEach(transaction => { %>
-              <li>
-                <h4>
-                  <%= transaction.username %>
-                    sent
-                    <%= transaction.receiving_username %>
-                      <%= transaction.amount %>
-                        coins
-                </h4>
-                <h5>
-                  <%= transaction.dateandtime %>
-                </h5>
-                <hr>
-              </li>
-              <% }) %>
-          </ul>
+            </datalist>
+            <input id="amount" type="number" name="amount" placeholder="  amount">
+            <button type="submit">Send</button>
+          </form>
         </div>
 
-
-        <div class="walletbalancesdiv">
-          <h2>Your Wallet</h2>
-          <hr style="width: 85%">
-          <div class="coinnameamount">
-            <ul class="walletcoinname">
-              <li>Balance: </li>
-            </ul>
-            <ul class="walletcoins">
-              <li>
-                <%= user.bal%> SWAP
-              </li>
-            </ul>
-          </div>
-        </div>
-
-
-
       </div>
+
+      <div class="activityfeed">
+        <h2>
+          Recent SWAP Transactions
+        </h2>
+        <ul class="transactionlist">
+          <hr>
+          <% all.forEach(transaction => { %>
+            <li>
+              <div class="left">
+                  <img src="https://previews.123rf.com/images/asmati/asmati1602/asmati160202968/52180906-user-sign-flat-style-icon-on-transparent-background.jpg">
+              </div>
+              <div class="middle">
+                  <p> <%= transaction.username %> paid <%= transaction.receiving_username %> </p>
+                  <p id="timestamp"><%= transaction.dateandtime %></p>
+              </div>
+              <div class="right">
+                  <p id="transactionamount"> <%= transaction.amount %> SWAP </p>
+              </div>
+            </li>
+            <hr>
+            <% }) %>
+        </ul>
+      </div>
+
     </div>
-
-
-
-
-
-
     <% include ./partials/footer %>
