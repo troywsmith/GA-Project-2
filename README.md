@@ -96,30 +96,36 @@ used balsamiq to detail the flow of the app
 
 ## Video Walk Through
 
-[Swap App](https://swaptokens.herokuapp.com/)
+[Swap App Walk Through](https://www.youtube.com/watch?v=gtf7oZaqUsU&feature=youtu.be)
 
 
 ## Proud Code Snippet
 
 ```javascript
 //when transaction form is submitted
-app.post("/newtransaction", (request, response) => {
-  const transactionData = {
-    sending_user_id: request.session.userId,
-    receiving_username: request.body.selectedusername,
-    amount: Number(request.body.amount),
-    dateandtime: moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
-  };
-  console.log(transactionData);
-  Model.updateBalances(transactionData).then(function (result) {
-      if (!result) {
-        console.log("nothing was returned");
-      }
-      response.redirect(301, 'dashboard');
+//when register form submitted
+app.post("/register", requireRegisterCredentials, (request, response) => {
+  const password = request.body.password;
+  const newEtherWallet = accounts.create();
+  bcrypt
+    .hash(password, saltRounds)
+    .then(hash => {
+      const newUser = {
+        username: request.body.username,
+        password_digest: hash,
+        email: request.body.email,
+        wallet_address: newEtherWallet.address,
+        privateKey: newEtherWallet.privateKey,
+      };
+      Model.updateMaster();
+      return Model.createUser(newUser);
     })
-    .catch(function (err) {
-      console.log('catch function was hit', err);
-      response.redirect(301, 'dashboard');
+    .then(user => {
+      request.session.loggedIn = true;
+      request.session.userId = user.id;
+      request.session.userEmail = user.email;
+      console.log("about to redirect to route -> /dashboard");
+      response.redirect(301, "/dashboard");
     });
 });
 ```

@@ -7,8 +7,6 @@ const moment = require('moment');
 const Web3 = require('web3');
 const Eth = require('web3-eth');
 const Accounts = require('web3-eth-accounts');
-const CoinMarketCap = require('coinmarketcap-api')
-const client = new CoinMarketCap()
 
 const app = express();
 const saltRounds = 10;
@@ -17,17 +15,7 @@ const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 const eth = new Eth(Eth.givenProvider || 'ws://some.local-or-remote.node:8546');
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
-
-// Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
-// for accounts.signTransaction().
 const accounts = new Accounts('ws://localhost:4567');
-
-const requireLogin = (request, response, next) => {
-  if (!request.session.loggedIn) {
-    return response.status(403).send("You do not have access");
-  }
-  next();
-};
 
 const requireRegisterCredentials = (request, response, next) => {
   let un = request.body.username;
@@ -48,6 +36,13 @@ const requireLoginCredentials = (request, response, next) => {
   next();
 };
 
+const requireLogin = (request, response, next) => {
+  if (!request.session.loggedIn) {
+    return response.status(403).send("You do not have access");
+  }
+  next();
+};
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -64,43 +59,30 @@ app.use(
 
 const PORT = process.env.PORT || 4567;
 
-//launch route > launch screen
 app.get("/", (request, response) => {
   console.log("about to render launch page");
   console.log(timestamp);
-  // client.getGlobal().then(result => {
-  //   console.log(result);
-  //   let total_market_cap = result.data.quotes.USD.total_market_cap
-    response.render('launch')
-  // })
+  response.render('launch')
 });
 
-
-//dashboard route > dashboard screen
 app.get("/dashboard", requireLogin, (request, response) => {
   Promise.all([
       Model.all(),
       Model.allUsers(),
       Model.findUser(request.session.userId),
-      Model.allTransactions(),
-      client.getListings(),
-      client.getTicker(),
+      Model.allTransactions()
     ])
-    .then(([all, users, userData, transactions, data, tickerData]) => {
+    .then(([all, users, userData, transactions]) => {
       console.log(`about to render dashboard page`)
-      console.log(tickerData);
       response.render(`dashboard`, {
         all: all,
         users: users,
         user: userData,
-        transactions: transactions,
-        coins: data,
-        tickers: tickerData.data,
+        transactions: transactions
       });
     });
 });
 
-//deposit/withdraw route > deposit/withdraw screen
 app.get("/depositwithdraw", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -117,7 +99,6 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
     });
 });
 
-//history route > history screen 
 app.get("/history", requireLogin, (request, response) => {
   Promise.all([
       Model.all(),
@@ -139,7 +120,6 @@ app.get("/history", requireLogin, (request, response) => {
     });
 });
 
-//settings route > settings screen
 app.get("/settings", requireLogin, (request, response) => {
   Promise.all([
       Model.allUsers(),
@@ -156,12 +136,10 @@ app.get("/settings", requireLogin, (request, response) => {
     });
 });
 
-//logout route > redirect to launch screen
 app.get("/logout", (request, response) => {
   response.redirect(`/`);
 });
 
-//when login form submitted
 app.post("/login", requireLoginCredentials, (request, response) => {
   console.log(request.body.username);
   if (request.body.username == "") {
@@ -180,7 +158,6 @@ app.post("/login", requireLoginCredentials, (request, response) => {
   });
 });
 
-//when register form submitted
 app.post("/register", requireRegisterCredentials, (request, response) => {
   const password = request.body.password;
   const newEtherWallet = accounts.create();
@@ -206,7 +183,6 @@ app.post("/register", requireRegisterCredentials, (request, response) => {
     });
 });
 
-//when transaction form is submitted
 app.post("/newtransaction", (request, response) => {
   const transactionData = {
     sending_user_id: request.session.userId,
@@ -227,7 +203,6 @@ app.post("/newtransaction", (request, response) => {
     });
 });
 
-//when update profile form is submitted
 app.post('/updateaccount', (request, response) => {
   const updatedData = {
     userId: request.session.userId,
@@ -241,7 +216,6 @@ app.post('/updateaccount', (request, response) => {
   response.redirect(301, 'dashboard');
 });
 
-//when delete account form is submitted
 app.post('/deleteaccount', (request, response) => {
   Model.deleteUser(request.session.userId);
   response.redirect(301, '/');
@@ -250,9 +224,7 @@ app.post('/deleteaccount', (request, response) => {
 //when user tries to withdraw
 app.post('/withdraw', (request, response) => {
   //make ether transaction from master wallet to user wallet
-
 })
-
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
