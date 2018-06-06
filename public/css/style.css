@@ -1,5 +1,3 @@
-/* whole site elements style */
-
 body {
   background-color: #A8D0E6;
   font-family: 'Jua', sans-serif;
@@ -48,12 +46,16 @@ button {
   border-radius: 25px;
   font-size: 20px;
   font-family: 'Jua', sans-serif;
-
 }
 
 button:hover {
   background: rgb(255, 54, 54);
 }
+
+.error {
+  color: red;
+}
+
 
 
 /* top nav bar */
@@ -82,14 +84,11 @@ button:hover {
   font-size: 40px;
   background-color: transparent;
   padding: 12px 0;
-  
 }
 
 .topnav a:hover {
   background-color: #F76C6C;
 }
-
-
 
 
 /* login or register page */
@@ -123,9 +122,7 @@ button:hover {
   padding: 20px;
   background: #374785;
   margin: 30px auto;
-  border-radius: 25px;
-  /* min-width: 250px;
-  min-height: 200px; */
+  border-radius: 10px;
 }
 
 .logindiv * {
@@ -136,16 +133,12 @@ button:hover {
   padding: 20px;
   background: #374785;
   margin: 30px auto;
-  border-radius: 25px;
-  /* min-width: 250px;
-  min-height: 200px; */
-
+  border-radius: 10px;
 }
 
 .registerdiv * {
   padding: 5px;
 }
-
 
 
 
@@ -179,7 +172,7 @@ button:hover {
   width: 25%;
   height: 100%;
   background: #374785;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .userbalancecard * {
@@ -195,13 +188,13 @@ button:hover {
 .emptydiv {
   width: 1%;
   height: 100%;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .paymentdiv {
   width: 59%;
   height: 100%;
-  border-radius: 15px;
+  border-radius: 10px;
   background: #374785;
 }
 
@@ -228,7 +221,7 @@ button:hover {
   background: #374785;
   margin: 10px auto;
   overflow: auto;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .activityfeed h2 {
@@ -236,7 +229,7 @@ button:hover {
 }
 
 hr {
- width: 90%;
+  width: 90%;
 }
 
 .transactionlist li {
@@ -250,8 +243,8 @@ hr {
 
 .middle {
   width: 60%;
-
 }
+
 .right {
   width: 20%;
   text-align: left;
@@ -267,79 +260,8 @@ li img {
 }
 
 
-
-
-
-
-
-
-
-/* .paymentdiv {
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  width: 60%;
-  font-size: 20px;
-}
-
-.paymentdiv * {
-  margin: 10px;
-}
-
-.activitywalletdiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  justify-content: space-around;
-  width: 100%;
-  height: 550px;
-  margin: 20px auto;
-}
-
-.activityfeed {
-  height: 60%;
-  width: 80%;
-  background-color: #374785;
-}
-
-.activityfeed * {
-  margin: 15px auto;
-  width: 95%;
-}
-
-.walletbalancesdiv {
-  height: 20;
-  width: 80%;
-  border-radius: 25px;
-  background-color: #374785;
-  overflow: auto;
-}
-
-.walletbalancesdiv h2 {
-  margin: 15px auto;
-}
-
-.coinnameamount {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-content: space-around;
-}
-
-.coinnameamount * {
-  margin: 20px;
-  font-size: 30px;
-} */
-
-
-
-
-
-
-/* friend page */
-
-.friendsearchdiv * {
+/* history page */
+.transactionsdiv * {
   margin: 10px;
 }
 
@@ -352,6 +274,8 @@ li img {
   margin: 10px;
 }
 
+
+
 /* Deposit Withdraw Page  */
 .container {
   width: 100%;
@@ -359,35 +283,29 @@ li img {
 }
 
 .deposit {
-  float: left;
-  width: 35%;
-  height: 500px;
-  margin: 25px auto auto 10%;
-  padding: 10px;
-  background-color: #374785;
-  overflow-wrap: break-word;
+  width: 85%;
+  height: 250px;
+  background: #374785;
+  margin: 10px auto;
+  overflow: auto;
+  border-radius: 10px;
 }
 
 .deposit * {
-  margin: auto;
+  margin: 20px auto;
 }
 
 .withdraw {
-  float: right;
-  width: 35%;
-  height: 500px;
-  margin: 25px 10% auto auto;
-  padding: 10px;
-  background-color: #374785;
+  width: 85%;
+  height: 275px;
+  background: #374785;
+  margin: 10px auto;
+  overflow: auto;
+  border-radius: 10px;
 }
 
 .withdraw * {
-  margin: 20px;
-}
-
-.withdraw input {
-  width: 80%;
-  border-radius: 0px;
+  margin: 15px auto;
 }
 
 .warning {
@@ -396,42 +314,49 @@ li img {
 
 
 
-
 /* settings page */
 .profilesettings {
+  width: 500px;
+  margin: auto;
   padding: 20px;
   background: #374785;
-  margin: 70px;
-  border-radius: 25px;
+  border-radius: 10px;
 }
 
 .profilesettings * {
-  padding: 10px;
+  padding: 5px;
+}
+
+.deleteaccount {
+  width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #374785;
+  border-radius: 10px;
+}
+
+.deleteaccount * {
+  padding: 5px;
 }
 
 
 
-/* 
 /* footer */
 footer {
-  position:fixed;
-  left:0px;
-  bottom:0px;
-  height:70px;
-  width:100%;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 70px;
+  width: 100%;
   background: #374785;
   margin: auto;
 }
 
-/* footer * {
-  margin: 10px auto;
-} */
-
 footer .left {
- width: 50%;
- text-align: left;
- float: left;
- height: 100%;
+  width: 50%;
+  text-align: left;
+  float: left;
+  height: 100%;
 }
 
 footer .left * {
@@ -445,28 +370,15 @@ footer .right {
   height: 100%;
 }
 
-
-/* Style all font awesome icons */
 .fa {
   padding: 30px;
   font-size: 30px;
-  width: 7px;
+  width: 5px;
   text-align: center;
   text-decoration: none;
   color: white;
 }
 
-/* Add a hover effect if you want */
 .fa:hover {
   opacity: 0.7;
 }
-
-
-
-
-/* error messages */
-
-.error {
-  color: red;
-} */ */
-

@@ -139,7 +139,7 @@ app.get("/history", requireLogin, (request, response) => {
     Model.allUsers(),
     Model.findUser(request.session.userId),
     Model.allTransactions(),
-    Model.findTransactionsByUserId(request.session.userId),
+    Model.jointable(request.session.userId),
   ])
   .then(([all, users, userData, transactions, userTransactions]) => {
     console.log(`about to render history page`)

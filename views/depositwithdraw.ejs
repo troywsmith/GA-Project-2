@@ -1,28 +1,29 @@
 <% include ./partials/head %>
-    <div class="withdrawpage">
-        <div class="pageheader">
+    <div class="dashboardpage">
+
+        <div class="topdiv">
             <h2>Deposit or Withdraw SWAP tokens</h2>
         </div>
 
-        <div class="container">
-
-            <div class="deposit">
-                <h2>Deposit</h2>
-                <h3>Send SWAP coins to the following wallet address:</h3>
-                <h4 class="warning">Warning: Sending any other digital asset will result in an unrecoverable loss of coins.</h4>
-                <h3 class="address">MUfGjrqw9UUxM4wf41NxBp8axquaBo9rzN</h3>
-            </div>
-
-            <div class="withdraw">
-                <h2>Withdraw</h2>
-                <h3>Enter the address you wish to have your coins sent to</h3>
-                <Form>
-                    <input type="text" name="withdrawaddress" placeholder="address" />
-                    <button>Send coins</button>
-                </Form>
-            </div>
-
+        <div class="deposit">
+            <h2>Deposit</h2>
+            <hr>
+            <h3>Send SWAP coins to your public wallet:</h3>
+            <h3 class="address"> <%= user.wallet_address %> </h3>
+            <h4 class="warning">(Warning: Sending any other digital asset will result in an unrecoverable loss of funds)</h4>
         </div>
+
+        <div class="withdraw">
+            <h2>Withdraw</h2>
+            <hr>
+            <h3>Enter the address you wish to have your balance forwarded to</h3>
+            <Form>
+                <input type="text" name="withdrawaddress" placeholder="address" />
+                <button>Send coins</button>
+            </Form>
+        </div>
+
+    </div>
 
     </div>
 

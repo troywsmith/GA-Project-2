@@ -25,3 +25,7 @@ CREATE TABLE transactions (
   amount INTEGER CHECK (amount > 0),
   dateandtime TEXT
 );
+
+CREATE TABLE joint (
+  
+)

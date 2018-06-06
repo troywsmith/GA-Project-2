@@ -1,32 +1,37 @@
 <% include ./partials/head %>
-        <div class="settingspage">
-            <div class="pageheader">
-                <h2>Settings</h2>
-            </div>
-            <div class="profilesettings">
-                    <h3>Your Profile</h3>
-                    <form class="profileinfo" action="/updateaccount" method="POST">
-                        <div>
-                            <input type="text" name="username" placeholder="username" />
-                            </div>
-                        <div>
-                            <input type="email" name="email" placeholder="email" />
-                        </div>
-                        <div>
-                            <input type="tel" name="phone" placeholder="phone" />
-                        </div>
-                        <div>
-                            <input type="text" name="address" placeholder="address" />
-                        </div>
-
-                        <button>Update Profile</button>
-                    </form>
-                    <form class="profileinfo" action="/deleteaccount" method="POST">
-                        <button>Delete Account</button>
-                    </form>
+    <div class="settingspage">
+        <div class="pageheader">
+            <h2>Settings</h2>
+        </div>
+        <div class="profilesettings">
+            <h3>Your Profile</h3>
+            <form class="profileinfo" action="/updateaccount" method="POST">
+                <div>
+                    <input type="text" name="username" placeholder="username" />
                 </div>
+                <div>
+                    <input type="email" name="email" placeholder="email" />
+                </div>
+                <div>
+                    <input type="tel" name="phone" placeholder="phone" />
+                </div>
+                <div>
+                    <input type="text" name="address" placeholder="address" />
+                </div>
+                <div>
+                    <button>Update Profile</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteaccount">
+            <form class="profileinfo" action="/deleteaccount" method="POST">
+                <div>
+                    <button>Delete Account</button>
+                </div>
+            </form>
+        </div>
 
-            </div>
+    </div>
 
 
-            <% include ./partials/footer %>
+    <% include ./partials/footer %>

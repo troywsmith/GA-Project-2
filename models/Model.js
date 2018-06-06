@@ -109,5 +109,17 @@ Model.findTransactionsByUserId = (id) => {
   {id: id});
 };
 
+Model.jointable = (id) => {
+  return db.any(`
+  SELECT * 
+  FROM users 
+  INNER JOIN transactions ON (users.id = transactions.sending_user_id)
+  WHERE (users.id = transactions.sending_user_id OR users.username = transactions.receiving_username)
+  AND (users.id = ${id})
+  ORDER BY transactions.dateandtime DESC
+`, 
+  {id: id});
+};
+
 
 module.exports = Model;
