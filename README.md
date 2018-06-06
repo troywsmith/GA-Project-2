@@ -61,6 +61,17 @@ Bodyparser - middleware used to parse incoming request bodies
 API's:
 - Web3 (Ethereum JavaScript API) - used to create ethereum wallet at time of user registration
 
+## Timeline (completed in 4 days)
+- Thursday, May 31st (5pm) - Prompt received
+
+- Thursday, May 31st (5pm-8pm) - Planning (wireframes, user stories, ERD)
+
+- Friday, June 1st 9am - Project Approved
+
+- Monday, June 4th - Check in (schema/seeds, models, routes structure, initial Heroku deployment)
+
+- Wednesday, June 6th - Project Presentation
+
 ## Process
 
 ### Wireframes
@@ -78,42 +89,19 @@ used balsamiq to detail the flow of the app
 ![User Stories](/images/userstories.png)
 
 ### Database
-drew out the entity relationship diagram
 
-PICTURE HERE
+Users Table: 
 
-### Routes - designed the HTTP route architecture
+[users](/images/users.png)
 
-### Schema & Seeds
-when you are confident with your ERD, define its tables in SQL and put into a schema file. For easier testing, write a seed file as well to insert sample data to your DB.
+Transactions Table:
 
-### Models
-you now have a working, populated database. Write a model with methods that use pg-promise to perform CRUD on the DB
-
-## Timeline (completed in 4 days)
-- Thursday, May 31st (5pm) - Prompt received
-
-- Thursday, May 31st (5pm-8pm) - Planning (wireframes, user stories, ERD)
-
-- Friday, June 1st 9am - Project Approved
-
-- Monday, June 4th - Check in (schema/seeds, models, routes structure, initial Heroku deployment)
-
-- Wednesday, June 6th - Project Presentation
+[transactions](/images/transactions.png)
 
 
 ## Video Walk Through
 
 [Swap App](https://swaptokens.herokuapp.com/)
-
-A video presentation that:
-- Is 5 minutes in length
-- Shows off the features of the app you're most proud of
-- Shows off some of your code
-- Explains one or two technical details
-- Explains one or two technical challenges
-- Explains which improvements you might make
-- Is uploaded to a video steaming platform
 
 
 ## Proud Code Snippet
