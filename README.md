@@ -1,7 +1,7 @@
 # Swap
 *Cryptocurrency exchange platform powered by SWAP tokens*
 
-[Swap App](https://swaptokens.herokuapp.com/)
+[Live Swap App](https://swaptokens.herokuapp.com/)
 
 ## Instructions for running Swap on localhost
 
@@ -20,7 +20,6 @@ npm i body-parser
 npm i bcrypt
 npm i moment
 npm i web3
-npm i express
 ```
 
 ### Create the database, tables, and seed data
@@ -92,11 +91,11 @@ used balsamiq to detail the flow of the app
 
 Users Table: 
 
-[users](/images/users.png)
+![users](/images/users.png)
 
 Transactions Table:
 
-[transactions](/images/transactions.png)
+![transactions](/images/transactions.png)
 
 
 ## Video Walk Through
@@ -134,4 +133,3 @@ app.post("/newtransaction", (request, response) => {
 - Improve error handlers
 - User notifications/prompts
 - Googe sign in
-- Design logo
