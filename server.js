@@ -7,44 +7,20 @@ const moment = require('moment');
 const Web3 = require('web3');
 const Eth = require('web3-eth');
 const Accounts = require('web3-eth-accounts');
-// const google = require('googleapis');
-// const path = require("path");
-// const methodOverride = require("method-override");
-// const alert = require('alert-node');
-// const cheerio = require('cheerio');
+const CoinMarketCap = require('coinmarketcap-api')
+const client = new CoinMarketCap()
 
 const app = express();
 const saltRounds = 10;
 const timestamp = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 
-// "Eth.providers.givenProvider" will be set if in an Ethereum supported browser.
 const eth = new Eth(Eth.givenProvider || 'ws://some.local-or-remote.node:8546');
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 const myAddress = "0x8C708b53584D6891da7c7A6653c3Aaf9B0664e42";
+
 // Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
 // for accounts.signTransaction().
 const accounts = new Accounts('ws://localhost:4567');
-
-// //google functions
-// const oauth2Client = new google.auth.OAuth2(
-//   "965791184759-tgsho327qaevv7mqn21loun3t0p6u4ih.apps.googleusercontent.com",
-//   "Z1ysKdr52KutQr_tK9G_rJtH",
-//   "https://swaptokens.herokuapp.com/oauth2callback"
-// );
-
-// function onSignIn(googleUser) {
-//   console.log('trying to sign in with google');
-//   var profile = googleUser.getBasicProfile();
-//   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-//   console.log('Name: ' + profile.getName());
-//   console.log('Image URL: ' + profile.getImageUrl());
-//   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-// }
-
-// app.post("/google", onSignIn, (request, response) => {
-//   console.log("about to redirect to route -> /dashboard");
-//   response.redirect(301, "/dashboard");
-// });
 
 const requireLogin = (request, response, next) => {
   if (!request.session.loggedIn) {
@@ -72,7 +48,6 @@ const requireLoginCredentials = (request, response, next) => {
   next();
 };
 
-// app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -93,8 +68,13 @@ const PORT = process.env.PORT || 4567;
 app.get("/", (request, response) => {
   console.log("about to render launch page");
   console.log(timestamp);
-  response.render("launch");
+  // client.getGlobal().then(result => {
+  //   console.log(result);
+  //   let total_market_cap = result.data.quotes.USD.total_market_cap
+    response.render('launch')
+  // })
 });
+
 
 //dashboard route > dashboard screen
 app.get("/dashboard", requireLogin, (request, response) => {
@@ -103,14 +83,19 @@ app.get("/dashboard", requireLogin, (request, response) => {
       Model.allUsers(),
       Model.findUser(request.session.userId),
       Model.allTransactions(),
+      client.getListings(),
+      client.getTicker(),
     ])
-    .then(([all, users, userData, transactions]) => {
+    .then(([all, users, userData, transactions, data, tickerData]) => {
       console.log(`about to render dashboard page`)
+      console.log(tickerData);
       response.render(`dashboard`, {
         all: all,
         users: users,
         user: userData,
         transactions: transactions,
+        coins: data,
+        tickers: tickerData.data,
       });
     });
 });
@@ -135,23 +120,23 @@ app.get("/depositwithdraw", requireLogin, (request, response) => {
 //history route > history screen 
 app.get("/history", requireLogin, (request, response) => {
   Promise.all([
-    Model.all(),
-    Model.allUsers(),
-    Model.findUser(request.session.userId),
-    Model.allTransactions(),
-    Model.jointable(request.session.userId),
-  ])
-  .then(([all, users, userData, transactions, userTransactions]) => {
-    console.log(`about to render history page`)
-    console.log(userTransactions);
-    response.render(`history`, {
-      all: all,
-      users: users,
-      user: userData,
-      transactions: transactions,
-      userTransactions: userTransactions,
+      Model.all(),
+      Model.allUsers(),
+      Model.findUser(request.session.userId),
+      Model.allTransactions(),
+      Model.jointable(request.session.userId),
+    ])
+    .then(([all, users, userData, transactions, userTransactions]) => {
+      console.log(`about to render history page`)
+      console.log(userTransactions);
+      response.render(`history`, {
+        all: all,
+        users: users,
+        user: userData,
+        transactions: transactions,
+        userTransactions: userTransactions,
+      });
     });
-  });
 });
 
 //settings route > settings screen

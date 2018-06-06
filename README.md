@@ -89,11 +89,7 @@ used balsamiq to detail the flow of the app
 
 ### Database
 
-Users Table: 
-
 ![users](/images/users.png)
-
-Transactions Table:
 
 ![transactions](/images/transactions.png)
 
