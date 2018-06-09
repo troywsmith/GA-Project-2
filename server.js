@@ -7,6 +7,7 @@ const moment = require('moment');
 const Web3 = require('web3');
 const Eth = require('web3-eth');
 const Accounts = require('web3-eth-accounts');
+const methodOverride = require('method-override')
 
 const app = express();
 const saltRounds = 10;
@@ -180,6 +181,26 @@ app.post("/register", requireRegisterCredentials, (request, response) => {
       request.session.userEmail = user.email;
       console.log("about to redirect to route -> /dashboard");
       response.redirect(301, "/dashboard");
+    });
+});
+
+app.post("/newtransaction", (request, response) => {
+  const transactionData = {
+    sending_user_id: request.session.userId,
+    receiving_username: request.body.selectedusername,
+    amount: Number(request.body.amount),
+    dateandtime: moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+  };
+  console.log(transactionData);
+  Model.updateBalances(transactionData).then(function (result) {
+      if (!result) {
+        console.log("nothing was returned");
+      }
+      response.redirect(301, 'dashboard');
+    })
+    .catch(function (err) {
+      console.log('catch function was hit', err);
+      response.redirect(301, 'dashboard');
     });
 });
 
